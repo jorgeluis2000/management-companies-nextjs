@@ -2,23 +2,47 @@
   "name": "management-companies-nextjs",
   "version": "0.1.0",
   "private": true,
+  "license": "CC BY-NC-ND 4.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "biome:format": "biome format --write ./src",
+    "biome:lint": "biome lint --write ./src",
+    "biome:check": "biome check --write ./src",
+    "ts-node": "ts-node --compiler-options {\"module\":\"CommonJS\"}"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.4"
+    "@apollo/client": "3.10.8",
+    "@apollo/server": "4.10.4",
+    "@as-integrations/next": "3.0.0",
+    "@auth0/nextjs-auth0": "3.5.0",
+    "@prisma/client": "5.16.1",
+    "accept-language-parser": "1.5.0",
+    "flowbite": "2.4.1",
+    "flowbite-react": "0.10.1",
+    "graphql": "16.9.0",
+    "next": "14.2.4",
+    "next-auth": "4.24.7",
+    "next-intl": "3.15.3",
+    "react": "18",
+    "react-dom": "18",
+    "react-icons": "5.2.1"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "@biomejs/biome": "1.8.2",
+    "@types/accept-language-parser": "1.5.6",
+    "@types/node": "20.14.9",
+    "@types/react": "18",
+    "@types/react-dom": "18",
+    "postcss": "8",
+    "prisma": "5.16.1",
+    "tailwindcss": "3.4.1",
+    "ts-node": "10.9.2",
+    "typescript": "5.5.2"
   }
 }

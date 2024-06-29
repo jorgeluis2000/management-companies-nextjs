@@ -1,0 +1,20 @@
+{
+  "Home": {
+    "welcome": "¡Bienvenido Inicia Sesión ahora!",
+    "description": "Gestiona los ingresos y egresos de tu empresa. Desde aquí podrás registrar los movimientos que realiza tu empresa desde administrar los usuarios o empleados que utilizaran el desarrollo.",
+    "btnLogin": "¡Iniciar sesión ahora!"
+  },
+  "NotFound": {
+    "code": "404",
+    "title": "Página no encontrada",
+    "message": "La pagina no se encontró, vuelve a la pagina de inicio.",
+    "link": "Volver al inicio"
+  },
+  "SignIn": {
+    "labelEmail": "Your email",
+    "labelPassword": "Your password",
+    "btnSignIn": "Iniciar sesión",
+    "btnGoBack": "Regresar al inicio",
+    "hr": "o"
+  }
+}

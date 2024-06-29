@@ -1,0 +1,20 @@
+{
+  "Home": {
+    "welcome": "Welcome, login now!",
+    "description": "Manage the income and expenses of your company. From here you can record the movements that your company makes from managing the users or employees who will use the development.",
+    "btnLogin": "Login now!"
+  },
+  "NotFound": {
+    "code": "404",
+    "title": "Page not found",
+    "message": "The requested page does not exist",
+    "link": "Go back to the homepage"
+  },
+  "SignIn": {
+    "labelEmail": "Your email",
+    "labelPassword": "Your password",
+    "btnSignIn": "Sign in now",
+    "btnGoBack": "Go back",
+    "hr": "or"
+  }
+}
