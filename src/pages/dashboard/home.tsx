@@ -2,7 +2,6 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_USER_BY_EMAIL } from "@app/backend/graphql/queries/UserQuery";
 import SkeletonTextPlaceholder from "@app/utils/components/SkeletonTextPlaceholder"
 import type { GetUserByEmailInput, TGetUserByEmail, TUser } from "@app/utils/domain/types/User";
-import type { UserAuth } from "@app/utils/domain/types/UserSession";
 import { Button, Card } from "flowbite-react"
 import type { GetStaticPropsContext } from "next"
 import { signOut, useSession } from "next-auth/react"
