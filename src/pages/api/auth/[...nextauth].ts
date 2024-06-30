@@ -1,7 +1,7 @@
 import { prisma } from "@app/backend/config/database/config";
 import UserRepository from "@app/backend/repositories/UserRepository";
 import UserUseCase from "@app/backend/usecase/user/UserUseCase";
-import type { UserAuth } from "@app/utils/domain/types/UserSession";
+import type { IUserSession, IUserSessionToken, UserAuth } from "@app/utils/domain/types/UserSession";
 import NextAuth, { type NextAuthOptions, type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -71,16 +71,18 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      const newSession = session as IUserSession
       if (token) {
-        session.user.id = token.sub;
-        session.user.role = token?.role;
-        session.user.image = token.picture;
-        session.user.theme = token.language;
-        session.user.theme = token.theme;
-        session.user.timeZone = token.timeZone;
-        session.user.name = token.name;
+        const newToken = token as IUserSessionToken
+        newSession.user.id = newToken.sub;
+        newSession.user.role = newToken?.role;
+        newSession.user.image = newToken.picture;
+        newSession.user.language = newToken.language;
+        newSession.user.theme = newToken.theme;
+        newSession.user.timeZone = newToken.timeZone;
+        newSession.user.name = newToken.name;
       }
-      return session;
+      return newSession;
     },
   },
   logger: {

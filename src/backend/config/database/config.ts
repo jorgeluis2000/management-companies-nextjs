@@ -1,17 +1,8 @@
+import type { IUserSession } from "@app/utils/domain/types/UserSession";
 import { PrismaClient, type Role, type UserTheme } from "@prisma/client";
 import type { Session } from "next-auth";
 
-export interface IUserSession extends Session {
-  user: {
-    name?: string;
-    email?: string;
-    image?: string | null;
-    id?: string;
-    role?: Role;
-    theme?: UserTheme;
-    timeZone?: string;
-  };
-}
+
 
 export type Context = {
   prisma: PrismaClient;

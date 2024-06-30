@@ -1,9 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { prisma } from "@app/backend/config/database/config";
-import type {
-  Context,
-  IUserSession,
-} from "@app/backend/config/database/config";
+import type { Context } from "@app/backend/config/database/config";
 import { resolvers } from "@app/backend/graphql/resolvers";
 import { typeDefs } from "@app/backend/graphql/schemas";
 import {
@@ -14,6 +11,7 @@ import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { getServerSession } from "next-auth";
 import { createTranslator } from "next-intl";
 import { authOptions } from "./auth/[...nextauth]";
+import type { IUserSession } from "@app/utils/domain/types/UserSession";
 
 const server = new ApolloServer<Context>({
   resolvers,
