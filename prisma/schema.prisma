@@ -14,26 +14,28 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(uuid())
-  email        String     @unique
+  id           String        @id @unique @default(uuid())
+  email        String        @unique
   name         String
+  phone        String?        @default("")
   password     String
-  image        String?
+  image        String?       @default("")
   idUserConfig String
-  userConfig   UserConfig @relation(fields: [idUserConfig], references: [id])
-  role         Role       @default(USER)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  userConfig   UserConfig    @relation(fields: [idUserConfig], references: [id])
+  role         Role          @default(USER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
 }
 
 model UserConfig {
-  id           String   @id @default(uuid())
+  id           String    @id @unique @default(uuid())
   codeLanguage String
-  language     Language @relation(fields: [codeLanguage], references: [code])
+  language     Language  @relation(fields: [codeLanguage], references: [code])
   codeTimezone String
-  timeZone     TimeZone @relation(fields: [codeTimezone], references: [zone])
-  users         User[]
-  theme UserTheme @default(LIGHT)
+  timeZone     TimeZone  @relation(fields: [codeTimezone], references: [zone])
+  users        User[]
+  theme        UserTheme @default(LIGHT)
 }
 
 model TimeZone {
@@ -57,4 +59,22 @@ enum UserTheme {
   DARK
   LIGHT
   AUTO
-} 
+}
+
+// Parte de logica de negocios
+
+model Transaction {
+  id              String          @id @unique @default(uuid())
+  concept         String
+  amount          Float
+  typeTransaction TypeTransaction
+  idUser          String
+  user            User            @relation(fields: [idUser], references: [id])
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+enum TypeTransaction {
+  INCOME
+  EXPENSE
+}

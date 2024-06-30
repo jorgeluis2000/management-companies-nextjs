@@ -7,8 +7,10 @@ export const typeDefs = `#graphql
         id: ID!
         email: String
         name: String
+        phone: String
         image:String
         userConfig: UserConfig
+        transactions: []
         role: Role
         createdAt: Date
         updatedAt: Date
@@ -41,9 +43,26 @@ export const typeDefs = `#graphql
         USER
     }
 
+    enum TypeTransaction {
+      INCOME
+      EXPENSE
+    }
+
+
+    type Transaction {
+        id: ID!
+        concept: String
+        amount: Float
+        typeTransaction: TypeTransaction
+        idUser: String
+        user: User
+        createdAt: Date
+        updatedAt: Date
+    }
+
     type Query {
         users(limit: Int!, page: Int!): [User]
-        user(id: ID!): User
+        user: User
         userByEmail(email: String!): User
     }
 
