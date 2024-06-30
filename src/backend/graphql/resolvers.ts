@@ -8,9 +8,18 @@ import type {
 import { prisma, type Context } from "../config/database/config";
 import UserRepository from "../repositories/UserRepository";
 import UserUseCase from "../usecase/user/UserUseCase";
+import TransactionRepository from "../repositories/TransactionRepository";
+import TransactionUseCase from "../usecase/transaction/TransactionUseCase";
+import type {
+  AddTransactionParams,
+  CurrentBalanceTransactionParams,
+  ListTransactionsParams,
+} from "@app/utils/domain/types/transaction/TransactionParams";
 
 const userRepository = new UserRepository(prisma);
+const transactionRepository = new TransactionRepository(prisma);
 const userUseCase = new UserUseCase(userRepository);
+const transactionUseCase = new TransactionUseCase(transactionRepository);
 
 export const resolvers = {
   Query: {
@@ -21,7 +30,7 @@ export const resolvers = {
       throw new Error(context.t("QueryError.sessionAuthorization"));
     },
     users: async (_parent: unknown, args: ListUserParams, context: Context) => {
-      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+      if (context.session?.user.id && context.session.user.role === "ADMIN") {
         return await userUseCase.listUsers(args);
       }
       if (context.session?.user.id && context.session.user.role !== "ADMIN") {
@@ -39,6 +48,26 @@ export const resolvers = {
       }
       if (context.session?.user.id && context.session.user.role !== "ADMIN") {
         throw new Error(context.t("QueryError.sessionAuthorization"));
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
+    },
+    transactions: async (
+      _parent: unknown,
+      args: ListTransactionsParams,
+      context: Context,
+    ) => {
+      if (context.session?.user.id) {
+        return await transactionUseCase.listTransactions(args);
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
+    },
+    currentBalance: async (
+      _parent: unknown,
+      args: CurrentBalanceTransactionParams,
+      context: Context,
+    ) => {
+      if (context.session?.user.id) {
+        return await transactionUseCase.currentBalanceTransaction(args);
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
     },
@@ -62,28 +91,41 @@ export const resolvers = {
       args: UpdateUserParams,
       context: Context,
     ) => {
-      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+      if (context.session?.user.id && context.session.user.role === "ADMIN") {
         return await userUseCase.updateUser(args);
       }
       if (context.session?.user.id && context.session.user.role !== "ADMIN") {
         throw new Error(context.t("QueryError.sessionAuthorization"));
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
-      
     },
     deleteUser: async (
       _parent: unknown,
       args: DeleteUserParams,
       context: Context,
     ) => {
-      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+      if (context.session?.user.id && context.session.user.role === "ADMIN") {
         return await userUseCase.removeUser(args);
       }
       if (context.session?.user.id && context.session.user.role !== "ADMIN") {
         throw new Error(context.t("QueryError.sessionAuthorization"));
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
-      
+    },
+    addTransaction: async (
+      _parent: unknown,
+      args: AddTransactionParams,
+      context: Context,
+    ) => {
+      if (context.session?.user.id) {
+        return await transactionUseCase.addTransaction({
+          concept: args.concept,
+          user: context.session.user.id,
+          amount: args.amount,
+          typeTransaction: args.typeTransaction,
+        });
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
     },
   },
 };

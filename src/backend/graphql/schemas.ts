@@ -47,21 +47,28 @@ export const typeDefs = `#graphql
 
 
     type Transaction {
-        id: ID!
+        id: ID
         concept: String
         amount: Float
         typeTransaction: TypeTransaction
-        idUser: String
-        user: User
+        user: UserTransaction
         createdAt: Date
         updatedAt: Date
+    }
+
+    type UserTransaction {
+        id: ID!
+        email: String
+        name: String
+        role: Role
     }
 
     type Query {
         users(limit: Int!, page: Int!): [User]
         user: User
         userByEmail(email: String!): User
-        transactions(limit: Int!, page: Int!, typeTransaction: TypeTransaction, user: ID): Transaction
+        transactions(limit: Int!, page: Int!, typeTransaction: TypeTransaction, user: ID): [Transaction]
+        currentBalance(user: ID): Float
     }
 
     type Mutation {
