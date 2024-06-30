@@ -1,8 +1,7 @@
 import { ThemeModeScript } from "flowbite-react";
-import { Html, Head, Main, NextScript } from "next/document";
+import { Head, Html, Main, NextScript } from "next/document";
 
 import { ThemeProvider } from "./components/theme-provider";
-
 
 export default function Document() {
   return (

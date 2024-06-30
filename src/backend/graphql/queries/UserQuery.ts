@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client"
-
+import { gql } from "@apollo/client";
 
 export const GET_USER = gql`
 query Query {
@@ -26,7 +25,7 @@ query Query {
     role
   }
 }
-`
+`;
 
 export const GET_USER_BY_EMAIL = gql`
 query Query($email: String!) {
@@ -52,4 +51,4 @@ query Query($email: String!) {
     }
   }
 }
-`
+`;

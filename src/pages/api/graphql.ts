@@ -1,29 +1,38 @@
-import { ApolloServer } from '@apollo/server';
-import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import { prisma } from '@app/backend/config/database/config'
-import type { Context, IUserSession } from '@app/backend/config/database/config';
-import { typeDefs } from '@app/backend/graphql/schemas';
-import { resolvers } from '@app/backend/graphql/resolvers';
-import { getServerSession } from 'next-auth';
-import { authOptions } from './auth/[...nextauth]';
-import { getMessages, resolveLocale } from '@app/utils/services/HandlerServerService';
-import { createTranslator } from 'next-intl';
-
+import { ApolloServer } from "@apollo/server";
+import { prisma } from "@app/backend/config/database/config";
+import type {
+  Context,
+  IUserSession,
+} from "@app/backend/config/database/config";
+import { resolvers } from "@app/backend/graphql/resolvers";
+import { typeDefs } from "@app/backend/graphql/schemas";
+import {
+  getMessages,
+  resolveLocale,
+} from "@app/utils/services/HandlerServerService";
+import { startServerAndCreateNextHandler } from "@as-integrations/next";
+import { getServerSession } from "next-auth";
+import { createTranslator } from "next-intl";
+import { authOptions } from "./auth/[...nextauth]";
 
 const server = new ApolloServer<Context>({
-    resolvers,
-    typeDefs,
+  resolvers,
+  typeDefs,
 });
 
 export default startServerAndCreateNextHandler(server, {
-    context: async (req, res) => {
-        const locale = resolveLocale(req);
-        const messages = await getMessages(locale)
-        const t = createTranslator({
-            locale,
-            messages
-        });
-        const session = await getServerSession(req, res, authOptions) as IUserSession
-        return ({ req, res, prisma, session, t })
-    }
+  context: async (req, res) => {
+    const locale = resolveLocale(req);
+    const messages = await getMessages(locale);
+    const t = createTranslator({
+      locale,
+      messages,
+    });
+    const session = (await getServerSession(
+      req,
+      res,
+      authOptions,
+    )) as IUserSession;
+    return { req, res, prisma, session, t };
+  },
 });

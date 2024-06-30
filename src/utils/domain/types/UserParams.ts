@@ -1,49 +1,47 @@
 import type { Role, UserTheme } from "@prisma/client";
 
 export type GetUserParams = {
-    id: string;
-}
+  id: string;
+};
 
 export type GetUserByEmailParams = {
-    email: string;
-}
+  email: string;
+};
 
 export type ListUserParams = {
-    limit: number;
-    page: number;
-}
-
+  limit: number;
+  page: number;
+};
 
 export type AddUserParams = {
-    email: string
-    name: string
-    role: Role
-    image?: string;
-    password: string
-    language: string
-    timeZone: string
-    theme: UserTheme
-}
-
+  email: string;
+  name: string;
+  role: Role;
+  image?: string;
+  password: string;
+  language: string;
+  timeZone: string;
+  theme: UserTheme;
+};
 
 export type UpdateUserParams = {
-    id: string
-    email?: string
-    name?: string
-    role?: Role
-    image?: string;
-    password?: string
-    language?: string
-    timeZone?: string
-    theme?: UserTheme
-}
+  id: string;
+  email?: string;
+  name?: string;
+  role?: Role;
+  image?: string;
+  phone?: string;
+  password?: string;
+  language?: string;
+  timeZone?: string;
+  theme?: UserTheme;
+};
 
 export type DeleteUserParams = {
-    id: string;
-}
-
+  id: string;
+};
 
 export type AuthUserParams = {
-    email: string
-    password: string
-}
+  email: string;
+  password: string;
+};

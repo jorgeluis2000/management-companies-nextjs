@@ -1,4 +1,1 @@
-
-export default function LayoutLogin() {
-
-}
+export default function LayoutLogin() {}
