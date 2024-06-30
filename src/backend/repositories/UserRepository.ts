@@ -24,6 +24,7 @@ export default class UserRepository {
           name: true,
           role: true,
           image: true,
+          phone: true,
           userConfig: {
             select: {
               id: true,
@@ -64,6 +65,7 @@ export default class UserRepository {
           name: true,
           role: true,
           image: true,
+          phone: true,
           userConfig: {
             select: {
               id: true,
@@ -102,6 +104,7 @@ export default class UserRepository {
           name: true,
           role: true,
           image: true,
+          phone: true,
           userConfig: {
             select: {
               id: true,
@@ -140,6 +143,7 @@ export default class UserRepository {
           password: data.password,
           image: data.image,
           name: data.name,
+          phone: data.phone,
           userConfig: {
             create: {
               theme: data.theme,
@@ -162,6 +166,7 @@ export default class UserRepository {
           name: true,
           role: true,
           image: true,
+          phone: true,
           userConfig: {
             select: {
               id: true,
@@ -232,6 +237,7 @@ export default class UserRepository {
           name: true,
           role: true,
           image: true,
+          phone: true,
           userConfig: {
             select: {
               id: true,
@@ -266,6 +272,13 @@ export default class UserRepository {
         where: {
           email: data.email,
           password: data.password,
+        },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+          image: true,
         },
       });
       return user;

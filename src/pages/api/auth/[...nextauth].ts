@@ -35,13 +35,7 @@ export const authOptions: NextAuthOptions = {
           if (!user) {
             throw new Error("Invalid credentials");
           }
-          const newSession: UserAuth = {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            role: user.role,
-            image: user.image,
-          };
+          const newSession: UserAuth = user
           return newSession;
         } catch (error) {
           throw new Error("Invalid credentials");

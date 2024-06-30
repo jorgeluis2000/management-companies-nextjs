@@ -6,6 +6,7 @@ export type TUser = {
   email: string;
   name: string;
   role: Role;
+  phone: string;
   userConfig: {
     id: string;
     timeZone: {
@@ -28,6 +29,7 @@ export type TGetUserByEmail = {
     image: string | null;
     email: string;
     name: string;
+    phone: string;
     role: Role;
     userConfig: {
       id: string;

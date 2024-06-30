@@ -6,7 +6,7 @@ export type UserAuth = {
   id: string;
   email: string;
   name: string;
-  role: string;
+  role: Role;
   image: string | null;
 };
 
