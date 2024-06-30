@@ -1,6 +1,6 @@
-import NextAuth, { type AuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions, type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma } from "../../../../prisma/db"
+import { prisma } from "@app/backend/config/database/config"
 import UserRepository from "@app/backend/repositories/UserRepository";
 import UserUseCase from "@app/backend/usecase/user/UserUseCase";
 import type { UserAuth } from "@app/utils/domain/types/UserSession";
@@ -12,7 +12,7 @@ type CredentialsProviderProps = {
 
 
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions  = {
   session: {
     strategy: 'jwt'
   },
@@ -45,6 +45,35 @@ export const authOptions: AuthOptions = {
     signOut: "/",
     error: "/"
   },
+  callbacks: {
+    async jwt({ token }) {
+      const userRepository = new UserRepository(prisma)
+      const userUseCase = new UserUseCase(userRepository)
+      const user = await userUseCase.session({ email: token.email ?? "" })
+      if (user) {
+        token.role = user.role
+        token.picture = user.image
+        token.language = user.userConfig.language
+        token.theme = user.userConfig.theme
+        token.timeZone = user.userConfig.timeZone.zone
+        token.name = user.name
+        token.email = user.email
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.sub;
+        session.user.role = token?.role;
+        session.user.image = token.picture;
+        session.user.theme = token.language;
+        session.user.theme = token.theme;
+        session.user.timeZone = token.timeZone;
+        session.user.name = token.name;
+      }
+      return session;
+    },
+  },
   logger: {
     error(code, metadata) {
       console.error(code, metadata)
@@ -56,6 +85,6 @@ export const authOptions: AuthOptions = {
       console.debug(code, metadata)
     }
   },
-  secret: process.env.AUTH_SECRET || ''
+  secret: process.env.NEXTAUTH_SECRET
 };
 export default NextAuth(authOptions);

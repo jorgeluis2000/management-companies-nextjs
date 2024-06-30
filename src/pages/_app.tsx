@@ -12,6 +12,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   const deviceTheme = useThemeMode()
   const clientApollo = new ApolloClient({
     uri: "/api/graphql",
+    credentials: "same-origin",
     cache: new InMemoryCache()
   })
   useEffect(() => {
