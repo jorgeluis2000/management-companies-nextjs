@@ -4,10 +4,10 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_USER_BY_EMAIL } from "@app/backend/graphql/queries/UserQuery";
 import SkeletonTextPlaceholder from "@app/utils/components/SkeletonTextPlaceholder";
 import type {
-  GetUserByEmailInput,
   TGetUserByEmail,
   TUser,
-} from "@app/utils/domain/types/User";
+} from "@app/utils/domain/types/user/User";
+import type { GetUserByEmailParams } from "@app/utils/domain/types/user/UserParams";
 import type { GetStaticPropsContext } from "next";
 import { signOut, useSession } from "next-auth/react";
 import Router from "next/router";
@@ -17,7 +17,7 @@ export default function HomePage() {
   const { status, data } = useSession();
   const [geUserByEmail, result] = useLazyQuery<
     TGetUserByEmail,
-    GetUserByEmailInput
+    GetUserByEmailParams
   >(GET_USER_BY_EMAIL);
   const [userByEmail, setUserByEmail] = useState<TUser | null>(null);
 

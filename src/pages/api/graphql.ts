@@ -11,7 +11,7 @@ import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { getServerSession } from "next-auth";
 import { createTranslator } from "next-intl";
 import { authOptions } from "./auth/[...nextauth]";
-import type { IUserSession } from "@app/utils/domain/types/UserSession";
+import type { IUserSession } from "@app/utils/domain/types/user/UserSession";
 
 const server = new ApolloServer<Context>({
   resolvers,

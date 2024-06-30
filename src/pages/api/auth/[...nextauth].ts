@@ -1,7 +1,7 @@
 import { prisma } from "@app/backend/config/database/config";
 import UserRepository from "@app/backend/repositories/UserRepository";
 import UserUseCase from "@app/backend/usecase/user/UserUseCase";
-import type { IUserSession, IUserSessionToken, UserAuth } from "@app/utils/domain/types/UserSession";
+import type { IUserSession, IUserSessionToken, UserAuth } from "@app/utils/domain/types/user/UserSession";
 import NextAuth, { type NextAuthOptions, type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 

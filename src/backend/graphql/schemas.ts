@@ -8,7 +8,6 @@ export const typeDefs = `#graphql
         phone: String
         image:String
         userConfig: UserConfig
-        transactions: [Transaction]
         role: Role
         createdAt: Date
         updatedAt: Date
@@ -62,11 +61,13 @@ export const typeDefs = `#graphql
         users(limit: Int!, page: Int!): [User]
         user: User
         userByEmail(email: String!): User
+        transactions(limit: Int!, page: Int!, typeTransaction: TypeTransaction, user: ID): Transaction
     }
 
     type Mutation {
         addUser(email: String!, name: String!, password: String!, image: String, role: Role!, language: String!, timeZone: String!, theme: UserTheme!): User
         deleteUser(id: ID!): Boolean!
         updateUser(id: ID!, email: String, name: String, password: String, phone: String, image: String, role: Role, language: String, timeZone: String, theme: UserTheme!): User
+        addTransaction(concept: String!, amount: Float!, typeTransaction: TypeTransaction!): Transaction
     }
 `;

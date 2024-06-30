@@ -7,7 +7,7 @@ import type {
   GetUserParams,
   ListUserParams,
   UpdateUserParams,
-} from "@app/utils/domain/types/UserParams";
+} from "@app/utils/domain/types/user/UserParams";
 
 export default class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}

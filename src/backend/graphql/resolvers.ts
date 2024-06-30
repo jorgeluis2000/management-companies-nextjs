@@ -4,7 +4,7 @@ import type {
   GetUserByEmailParams,
   ListUserParams,
   UpdateUserParams,
-} from "@app/utils/domain/types/UserParams";
+} from "@app/utils/domain/types/user/UserParams";
 import { prisma, type Context } from "../config/database/config";
 import UserRepository from "../repositories/UserRepository";
 import UserUseCase from "../usecase/user/UserUseCase";

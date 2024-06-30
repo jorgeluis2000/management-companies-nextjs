@@ -7,20 +7,29 @@ export type TUser = {
   name: string;
   role: Role;
   phone: string;
-  userConfig: {
-    id: string;
-    timeZone: {
-      zone: string;
-      utcOffset: string;
-    };
-    theme: UserTheme;
-    language: {
-      code: string;
-      name: string;
-    };
-  };
+  userConfig: TUserConfig;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type TUserConfig = {
+  id: string;
+  timeZone: {
+    zone: string;
+    utcOffset: string;
+  };
+  theme: UserTheme;
+  language: {
+    code: string;
+    name: string;
+  };
+};
+
+export type TUserSimple = {
+  id: string;
+  email: string;
+  name: string;
+  role: Role;
 };
 
 export type TGetUserByEmail = {
@@ -46,8 +55,4 @@ export type TGetUserByEmail = {
     createdAt: Date;
     updatedAt: Date;
   };
-};
-
-export type GetUserByEmailInput = {
-  email: string;
 };

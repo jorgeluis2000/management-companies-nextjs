@@ -1,6 +1,5 @@
-import type { IUserSession } from "@app/utils/domain/types/UserSession";
+import type { IUserSession } from "@app/utils/domain/types/user/UserSession";
 import { PrismaClient, type Role, type UserTheme } from "@prisma/client";
-import type { Session } from "next-auth";
 
 
 
