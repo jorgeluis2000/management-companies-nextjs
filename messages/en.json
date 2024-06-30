@@ -16,5 +16,9 @@
     "btnSignIn": "Sign in now",
     "btnGoBack": "Go back",
     "hr": "or"
+  },
+  "QueryError": {
+    "sessionAuthorization": "No cumples con los permisos permitidos para realizar esta acción.",
+    "notAuthenticated": "No has iniciado sesión aún."
   }
 }

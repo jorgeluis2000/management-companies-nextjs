@@ -16,5 +16,9 @@
     "btnSignIn": "Iniciar sesión",
     "btnGoBack": "Regresar al inicio",
     "hr": "o"
+  },
+  "QueryError": {
+    "sessionAuthorization": "No has iniciado sesión aún.",
+    "notAuthenticated": "No has iniciado sesión aún."
   }
 }
