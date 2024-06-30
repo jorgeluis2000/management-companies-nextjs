@@ -28,24 +28,11 @@ export default class TransactionUseCase {
     data: CurrentBalanceTransactionParams,
   ) {
     try {
-      let income = 0;
-      let expense = 0;
       const balanceIncome =
         await this.transactionRepository.currentBalanceIncomeTransaction(data);
       const balanceExpense =
         await this.transactionRepository.currentBalanceExpenseTransaction(data);
-
-      for (let index = 0; index < balanceIncome.length; index++) {
-        const balance = balanceIncome[index];
-        income += balance.amount;
-      }
-
-      for (let index = 0; index < balanceExpense.length; index++) {
-        const balance = balanceExpense[index];
-        expense += balance.amount;
-      }
-
-      return income - expense;
+      return balanceIncome - balanceExpense;
     } catch (error) {
       return 0;
     }

@@ -69,19 +69,18 @@ export default class TransactionRepository {
     data: CurrentBalanceTransactionParams,
   ) {
     try {
-      const balance = await this.prisma.transaction.findMany({
+      const balance = await this.prisma.transaction.aggregate({
+        _sum: {
+          amount: true,
+        },
         where: {
           typeTransaction: "INCOME",
           idUser: data.user,
         },
-        select: {
-          typeTransaction: true,
-          amount: true,
-        },
       });
-      return balance;
+      return balance._sum.amount !== null ? balance._sum.amount : 0;
     } catch (error) {
-      return [];
+      return 0;
     }
   }
 
@@ -89,19 +88,18 @@ export default class TransactionRepository {
     data: CurrentBalanceTransactionParams,
   ) {
     try {
-      const balance = await this.prisma.transaction.findMany({
+      const balance = await this.prisma.transaction.aggregate({
+        _sum: {
+          amount: true,
+        },
         where: {
           typeTransaction: "EXPENSE",
           idUser: data.user,
         },
-        select: {
-          typeTransaction: true,
-          amount: true,
-        },
       });
-      return balance;
+      return balance._sum.amount !== null ? balance._sum.amount : 0;
     } catch (error) {
-      return [];
+      return 0;
     }
   }
 }
