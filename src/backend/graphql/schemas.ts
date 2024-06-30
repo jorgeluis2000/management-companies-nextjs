@@ -10,7 +10,7 @@ export const typeDefs = `#graphql
         phone: String
         image:String
         userConfig: UserConfig
-        transactions: []
+        transactions: [Transaction]
         role: Role
         createdAt: Date
         updatedAt: Date

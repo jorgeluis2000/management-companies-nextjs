@@ -2,27 +2,28 @@ import { gql } from "@apollo/client"
 
 
 export const GET_USER = gql`
-query Query() {
+query Query {
   user {
+    createdAt
+    email
     id
     image
     name
-    email
-    createdAt
-    role
+    phone
     updatedAt
     userConfig {
       id
       language {
-        code
         name
+        code
       }
       theme
       timeZone {
-        utcOffset
         zone
+        utcOffset
       }
     }
+    role
   }
 }
 `

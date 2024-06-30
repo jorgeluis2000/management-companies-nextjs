@@ -2,7 +2,9 @@ import { Inter } from "next/font/google";
 import { useTranslations } from 'next-intl';
 import type { GetStaticPropsContext } from 'next';
 import { useRouter } from "next/router";
-import { Button, Card, Footer, HR } from "flowbite-react";
+import { HRTrimmed } from "@app/utils/components/HR";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,14 +18,21 @@ export default function Home() {
       <Card
         className="max-w-sm"
       >
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{t('welcome')}</h5>
-        <p className="font-normal text-gray-700 dark:text-gray-400">{t('description')}</p>
-        <HR.Trimmed />
-        <Button gradientMonochrome="cyan" onClick={() => {
-          router.push(`/${router.locale}/auth/signin`)
-        }}>
-          {t('btnLogin')}
-        </Button>
+        <CardHeader>
+          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{t('welcome')}</h5>
+          <p className="font-normal text-gray-700 dark:text-gray-400">{t('description')}</p>
+
+        </CardHeader>
+        <CardContent>
+          <HRTrimmed />
+        </CardContent>
+        <CardFooter className="justify-center items-center">
+          <Button color="cyan" onClick={() => {
+            router.push(`/${router.locale}/auth/signin`)
+          }}>
+            {t('btnLogin')}
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   );
