@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { useLazyQuery } from "@apollo/client";
-import { GET_USER_BY_EMAIL } from "@app/backend/graphql/queries/UserQuery";
+import { GET_USER_BY_EMAIL } from "@app/utils/queries/UserQuery";
 import SkeletonTextPlaceholder from "@app/utils/components/SkeletonTextPlaceholder";
 import type {
   TGetUserByEmail,
@@ -39,28 +39,34 @@ export default function HomePage() {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-24">
         <Card className="max-w-sm">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            This page protected for special people.
-          </h2>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            Id: {userByEmail?.id}
-          </p>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            Email: {userByEmail?.email}
-          </p>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            Name: {userByEmail?.name}
-          </p>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            Role: {userByEmail?.role}
-          </p>
-          <Button
-            onClick={() => {
-              signOut();
-            }}
-          >
-            Logout
-          </Button>
+          <CardHeader>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              This page protected for special people.
+            </h2>
+          </CardHeader>
+          <CardContent>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+              Id: {userByEmail?.id}
+            </p>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+              Email: {userByEmail?.email}
+            </p>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+              Name: {userByEmail?.name}
+            </p>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+              Role: {userByEmail?.role}
+            </p>
+          </CardContent>
+          <CardFooter>
+            <Button
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Logout
+            </Button>
+          </CardFooter>
         </Card>
       </div>
     );
