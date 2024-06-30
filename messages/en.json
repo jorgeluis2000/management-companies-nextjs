@@ -18,7 +18,7 @@
     "hr": "or"
   },
   "QueryError": {
-    "sessionAuthorization": "No cumples con los permisos permitidos para realizar esta acción.",
-    "notAuthenticated": "No has iniciado sesión aún."
+    "sessionAuthorization": "You do not have the permissions allowed to perform this action.",
+    "notAuthenticated": "You are not logged in yet."
   }
 }
