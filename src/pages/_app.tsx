@@ -1,13 +1,11 @@
 import "@app/styles/globals.css";
-import { cn } from "@/lib/utils";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import type { AppProps } from "next/app";
 import { Inter as FontSans } from "next/font/google";
 import { useRouter } from "next/router";
-import Footer from "../utils/components/Footer";
-import FooterItem from "../utils/components/FooterItem";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,10 +25,7 @@ export default function App({
 
   return (
     <div
-      className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        fontSans.variable,
-      )}
+      className={`bg-background font-sans antialiased ${fontSans.className}`}
     >
       <SessionProvider session={pageProps.session}>
         <ApolloProvider client={clientApollo}>
@@ -39,16 +34,8 @@ export default function App({
             timeZone="America/Bogota"
             messages={pageProps.messages}
           >
+            <Toaster position="top-right" duration={3000} closeButton pauseWhenPageIsHidden />
             <Component {...pageProps} />
-            <Footer
-              year="2024"
-              by="Jorge Luis Güiza Granobles"
-              description="All Rights Reserved."
-            >
-              <FooterItem href="https://github.com/jorgeluis2000/management-companies-nextjs">
-                Licensing
-              </FooterItem>
-            </Footer>
           </NextIntlClientProvider>
         </ApolloProvider>
       </SessionProvider>

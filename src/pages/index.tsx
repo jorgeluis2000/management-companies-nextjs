@@ -6,6 +6,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { HRTrimmed } from "@app/utils/components/HR";
+import InitLayout from "@app/utils/components/layouts/InitLayout";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
 import { Inter } from "next/font/google";
@@ -18,9 +19,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div
-      className={`flex min-h-screen flex-col items-center justify-center p-24 ${inter.className}`}
-    >
+    <InitLayout>
       <Card className="max-w-sm">
         <CardHeader>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -44,7 +43,7 @@ export default function Home() {
           </Button>
         </CardFooter>
       </Card>
-    </div>
+    </InitLayout>
   );
 }
 

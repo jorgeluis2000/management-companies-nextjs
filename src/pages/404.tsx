@@ -23,12 +23,10 @@ export default function NotFound() {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h1>
-              {t("title")}: {t("code")}
-            </h1>
+            {t("title")}: {t("code")}
           </CardTitle>
           <CardDescription>
-            <p>{t("message")}</p>
+            {t("message")}
           </CardDescription>
         </CardHeader>
         <CardFooter>

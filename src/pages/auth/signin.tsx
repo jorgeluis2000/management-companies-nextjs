@@ -2,22 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { HRText } from "@app/utils/components/HR";
+import InitLayout from "@app/utils/components/layouts/InitLayout";
 import { Label } from "@radix-ui/react-label";
 import type { GetStaticPropsContext, NextPage } from "next";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { FiAlertOctagon, FiCheck } from "react-icons/fi";
 import { HiHome, HiOutlineArrowRight } from "react-icons/hi";
+import { toast } from "sonner";
 
-export default function SignIn(props: NextPage) {
+export default function SignInPage(props: NextPage) {
   const t = useTranslations("SignIn");
   const router = useRouter();
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   return (
-    <div className="flex flex-col space-y-6 min-h-screen items-center justify-center p-24">
+    <InitLayout>
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Login
+        {t("title")}
       </h5>
       <Card className="lg:min-w-96 max-w-md">
         <CardHeader />
@@ -32,9 +35,17 @@ export default function SignIn(props: NextPage) {
                 redirect: false,
               });
               if (response?.ok) {
-                router.push(`/${router.locale}/dashboard/home`);
+                toast("Success", {
+                  richColors: true,
+                  icon: <FiCheck  size={20} className="text-green-600" />,
+                });
+                router.push(`/${router.locale}/dashboard`);
               } else {
-                alert(response?.error);
+                toast("Error", {
+                  richColors: true,
+                  icon: <FiAlertOctagon size={20} className="text-red-600" />,
+                  description: response?.error,
+                });
               }
             }}
           >
@@ -86,7 +97,7 @@ export default function SignIn(props: NextPage) {
           </form>
         </CardContent>
       </Card>
-    </div>
+    </InitLayout>
   );
 }
 
