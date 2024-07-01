@@ -11,11 +11,38 @@
     "link": "Volver al inicio"
   },
   "SignIn": {
-    "labelEmail": "Your email",
-    "labelPassword": "Your password",
+    "labelEmail": "Tu email",
+    "labelPassword": "Tu contraseña",
     "btnSignIn": "Iniciar sesión",
     "btnGoBack": "Regresar al inicio",
-    "hr": "o"
+    "hr": "o",
+    "title": "Iniciar sesión"
+  },
+  "Dashboard": {
+    "cardBalance": {
+      "title": "Saldo Total",
+      "extra": "all times"
+    },
+    "cardCountUsers": {
+      "title": "Total Usuarios",
+      "extra": "all times"
+    },
+    "cardCountTransactions": {
+      "title": "Transiciones Totales",
+      "extra": "all times"
+    },
+    "tableTransactions": {
+      "title": "Transiciones",
+      "summary": "Las transacciones recientes desde tu empresa.",
+      "more": "Ver Todo",
+      "columns": {
+        "user": "Usuario",
+        "typeUser": "Tipo Usuario",
+        "typeTransaction": "Tipo Transacción",
+        "date": "Fecha",
+        "amount": "Monto"
+      }
+    }
   },
   "QueryError": {
     "sessionAuthorization": "No tienes los permisos suficientes para realizar esta acción",

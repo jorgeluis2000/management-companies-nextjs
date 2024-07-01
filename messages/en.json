@@ -15,7 +15,34 @@
     "labelPassword": "Your password",
     "btnSignIn": "Sign in now",
     "btnGoBack": "Go back",
-    "hr": "or"
+    "hr": "or",
+    "title": "Login"
+  },
+  "Dashboard": {
+    "cardBalance": {
+      "title": "Total Amount",
+      "extra": "all times"
+    },
+    "cardCountUsers": {
+      "title": "Total Users",
+      "extra": "all times"
+    },
+    "cardCountTransactions": {
+      "title": "Total Transactions",
+      "extra": "all times"
+    },
+    "tableTransactions": {
+      "title": "Transactions",
+      "summary": "Recent transactions from your company.",
+      "more": "View All",
+      "columns": {
+        "user": "User",
+        "typeUser": "Type User",
+        "typeTransaction": "Type Transaction",
+        "date": "Date",
+        "amount": "Amount"
+      }
+    }
   },
   "QueryError": {
     "sessionAuthorization": "You do not have the permissions allowed to perform this action.",
