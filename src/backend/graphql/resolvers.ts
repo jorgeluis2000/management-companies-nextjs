@@ -12,6 +12,7 @@ import TransactionRepository from "../repositories/TransactionRepository";
 import TransactionUseCase from "../usecase/transaction/TransactionUseCase";
 import type {
   AddTransactionParams,
+  CountTransactionsParams,
   CurrentBalanceTransactionParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
@@ -71,6 +72,26 @@ export const resolvers = {
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
     },
+    countTransactions: async (
+      _parent: unknown,
+      args: CountTransactionsParams,
+      context: Context,
+    ) => {
+      if (context.session?.user.id) {
+        return await transactionUseCase.countTransactions(args);
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
+    },
+    countUsers: async (
+      _parent: unknown,
+      _args: unknown,
+      context: Context,
+    ) => {
+      if (context.session?.user.id) {
+        return await userUseCase.countUsers();
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
+    }
   },
   Mutation: {
     addUser: async (

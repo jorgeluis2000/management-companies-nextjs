@@ -28,7 +28,6 @@ export default class UserUseCase {
     }
   }
 
-
   public async getUser(data: GetUserParams) {
     try {
       return await this.userRepository.getUser(data);
@@ -74,6 +73,14 @@ export default class UserUseCase {
       return await this.userRepository.getUserByEmail(data);
     } catch (error) {
       throw new Error("Invalid credentials");
+    }
+  }
+
+  public async countUsers() {
+    try {
+      return await this.userRepository.countUsers();
+    } catch (error) {
+      return 0;
     }
   }
 }

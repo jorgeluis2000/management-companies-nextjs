@@ -65,9 +65,11 @@ export const typeDefs = `#graphql
 
     type Query {
         users(limit: Int!, page: Int!): [User]
+        countUsers: Int
         user: User
         userByEmail(email: String!): User
         transactions(limit: Int!, page: Int!, typeTransaction: TypeTransaction, user: ID): [Transaction]
+        countTransactions(typeTransaction: TypeTransaction, user: ID): Int
         currentBalance(user: ID): Float
     }
 

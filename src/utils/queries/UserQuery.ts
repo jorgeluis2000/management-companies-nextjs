@@ -27,6 +27,12 @@ query Query {
 }
 `;
 
+export const COUNT_USER = gql`
+query Query {
+  countUsers
+}
+`;
+
 export const GET_USER_BY_EMAIL = gql`
 query Query($email: String!) {
   userByEmail(email: $email) {

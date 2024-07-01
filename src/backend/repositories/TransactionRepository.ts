@@ -1,5 +1,6 @@
 import type {
   AddTransactionRepositoryParams,
+  CountTransactionsParams,
   CurrentBalanceTransactionParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
@@ -98,6 +99,19 @@ export default class TransactionRepository {
         },
       });
       return balance._sum.amount !== null ? balance._sum.amount : 0;
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  public async countTransactions(data: CountTransactionsParams) {
+    try {
+      return await this.prisma.transaction.count({
+        where: {
+          typeTransaction: data.typeTransaction,
+          idUser: data.user,
+        },
+      });
     } catch (error) {
       return 0;
     }

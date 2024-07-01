@@ -7,6 +7,11 @@ export type ListTransactionsParams = {
   user?: string;
 };
 
+export type CountTransactionsParams = {
+  typeTransaction?: TypeTransaction;
+  user?: string;
+};
+
 export type AddTransactionParams = {
   concept: string;
   amount: number;

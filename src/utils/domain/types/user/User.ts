@@ -28,3 +28,8 @@ export type TUserConfig = {
 export type TGetUserByEmail = {
   userByEmail: TUser
 };
+
+
+export type TCurrentCountUsers = {
+  countUsers: number
+};

@@ -19,8 +19,16 @@ export type TUserTransaction = {
 };
 
 export type TListTransaction = {
-  transactions: TTransaction
+  transactions: TTransaction[]
 };
+
+export type TCurrentBalanceTransaction = {
+  currentBalance: number
+};
+
+export type TCountTransactions = {
+  countTransactions: number
+}
 
 export type TAddTransaction = {
   addTransaction: TTransaction

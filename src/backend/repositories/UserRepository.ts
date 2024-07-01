@@ -134,6 +134,15 @@ export default class UserRepository {
     }
   }
 
+  public async countUsers() {
+    try {
+      const users = await this.prisma.user.count();
+      return users;
+    } catch (error) {
+      return 0;
+    }
+  }
+
   public async addUser(data: AddUserParams) {
     try {
       const user = await this.prisma.user.create({
