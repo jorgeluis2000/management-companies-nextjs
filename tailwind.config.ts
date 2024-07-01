@@ -21,7 +21,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["Poppins", "sans-serif"],
+        serif: ["Nanum Gothic", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
