@@ -15,9 +15,10 @@ datasource db {
 
 model User {
   id           String        @id @unique @default(uuid())
+  idAuthZero   String        @default("")
   email        String        @unique
   name         String
-  phone        String?        @default("")
+  phone        String?       @default("")
   password     String
   image        String?       @default("")
   idUserConfig String
