@@ -11,6 +11,7 @@ query Query($limit: Int!, $page: Int!, $user: ID, $typeTransaction: TypeTransact
     user {
       id
       name
+      email
       role
     }
   }

@@ -35,7 +35,7 @@ export default class TransactionRepository {
         },
         orderBy: [
           {
-            amount: 'desc'
+            createdAt: 'desc'
           }
         ],
         skip,
@@ -43,10 +43,6 @@ export default class TransactionRepository {
       });
       return transactions;
     } catch (error) {
-      console.log(
-        "🚀 ~ TransactionRepository ~ listTransactions ~ error:",
-        error,
-      );
       return [];
     }
   }

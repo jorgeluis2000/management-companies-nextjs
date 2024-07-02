@@ -1,7 +1,7 @@
 
 
 export type TTransactionAdd = {
-    amount: ValueItem<number>
+    amount: ValueItem<string>
     concept: ValueItem<string>
     type: ValueItem<string>
 

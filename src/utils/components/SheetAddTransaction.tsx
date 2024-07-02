@@ -61,7 +61,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
       richColors: true,
       icon: <FiCheck size={20} className="text-green-600" />,
     });
-    // router.reload();
+    router.reload();
   }
 
   return (
@@ -72,56 +72,70 @@ export default function SheetAddTransaction({ description, title }: IProps) {
           <FiArrowUpRight size={16} />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"right"}>
+      <SheetContent className="space-y-5" side={"right"}>
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
-        <form className="grid gap-4 py-4" onSubmit={eventHandlerAddTransaction}>
+        <form
+          className="grid gap-4 gap-y-8 py-4"
+          onSubmit={eventHandlerAddTransaction}
+        >
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="concept-transaction-add" className="text-right">
-              Concept
+              {t("sheetAddTransaction.inputs.labelConcept")}
             </Label>
             <Input
               id="concept-transaction-add"
               name="concept"
               type="text"
-              placeholder="Car payment..."
+              placeholder={t("sheetAddTransaction.inputs.placeholderConcept")}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="amount-transaction-add" className="text-right">
-              Amount
+              {t("sheetAddTransaction.inputs.labelAmount")}
             </Label>
             <Input
               id="amount-transaction-add"
               name="amount"
               type="number"
-              placeholder="Amount of payment"
+              autoComplete="off"
+              placeholder={t("sheetAddTransaction.inputs.placeholderAmount")}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="type-transaction-add" className="text-right">
-              Type
+              {t("sheetAddTransaction.inputs.labelType")}
             </Label>
             <Select name="type">
               <SelectTrigger id="type-transaction-add" className="col-span-3">
-                <SelectValue placeholder="Select type transaction" />
+                <SelectValue
+                  placeholder={t("sheetAddTransaction.inputs.placeholderType")}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Type transaction</SelectLabel>
-                  <SelectItem value="INCOME">Income</SelectItem>
-                  <SelectItem value="EXPENSE">Expense</SelectItem>
+                  <SelectLabel>
+                    {t("sheetAddTransaction.inputs.optionsType.defaultValue")}
+                  </SelectLabel>
+                  <SelectItem value="INCOME">
+                    {t("sheetAddTransaction.inputs.optionsType.income")}
+                  </SelectItem>
+                  <SelectItem value="EXPENSE">
+                    {t("sheetAddTransaction.inputs.optionsType.expense")}
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit">
+                {t("sheetAddTransaction.btnSaveName")}
+              </Button>
             </SheetClose>
           </SheetFooter>
         </form>

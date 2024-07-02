@@ -12,6 +12,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -23,6 +24,7 @@ import type {
   TCountTransactions,
   TCurrentBalanceTransaction,
   TListTransaction,
+  TTransaction,
 } from "@app/utils/domain/types/transaction/Transaction";
 import type {
   CurrentBalanceTransactionParams,
@@ -35,27 +37,31 @@ import {
 } from "@app/utils/queries/TransactionQuery";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-import {
-  FiActivity,
-  FiDollarSign,
-  FiMoreHorizontal,
-} from "react-icons/fi";
+import { FiActivity, FiArrowDownCircle, FiDollarSign } from "react-icons/fi";
 import { format } from "@formkit/tempo";
 import { useReadLocalStorage } from "usehooks-ts";
 import SheetAddTransaction from "@app/utils/components/SheetAddTransaction";
+import { useEffect, useState } from "react";
+import { maxPagesList } from "@app/utils/services/ListServer";
 
 export default function TransactionPage() {
+  const limitRows = 25;
   const expense = "border-red-500 text-red-700 bg-red-200/50";
   const income = "border-green-500 text-green-700 bg-green-200/50";
   const timezone = useReadLocalStorage<string>("timezone");
   const t = useTranslations("Transaction");
+
+  const [listTransactions, setListTransactions] = useState<TTransaction[]>([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [countTrans, setCountTrans] = useState<number>(0);
   const {
     error: _transactionsError,
     loading: transactionsLoading,
     data: transactions,
   } = useQuery<TListTransaction, ListTransactionsParams>(GET_TRANSACTIONS, {
-    variables: { page: 1, limit: 25 },
+    variables: { page: currentPage, limit: limitRows },
   });
 
   const {
@@ -65,12 +71,30 @@ export default function TransactionPage() {
   } = useQuery<TCountTransactions, ListTransactionsParams>(COUNT_TRANSACTIONS);
 
   const {
-    error: balanceError,
+    error: _balanceError,
     loading: balanceLoading,
     data: balance,
   } = useQuery<TCurrentBalanceTransaction, CurrentBalanceTransactionParams>(
     CURRENT_BALANCE_TRANSACTION,
   );
+
+  async function eventHandlerShowMoreTransactions() {
+    setCurrentPage((beforePage) => beforePage + 1);
+  }
+
+  useEffect(() => {
+    if (transactions) {
+      setListTransactions((prev) => [...prev, ...transactions.transactions]);
+    }
+  }, [transactions]);
+
+  useEffect(() => {
+    if (countTransaction) {
+      setCountTrans(
+        maxPagesList(countTransaction.countTransactions, limitRows),
+      );
+    }
+  }, [countTransaction]);
 
   return (
     <DashboardLayout className="space-y-5">
@@ -135,7 +159,10 @@ export default function TransactionPage() {
                 {t("tableTransactions.summary")}
               </CardDescription>
             </div>
-            <SheetAddTransaction title="" description="" />
+            <SheetAddTransaction
+              title={t("sheetAddTransaction.title")}
+              description={t("sheetAddTransaction.description")}
+            />
           </CardHeader>
           <CardContent>
             <Table>
@@ -146,9 +173,6 @@ export default function TransactionPage() {
                     {t("tableTransactions.columns.concept")}
                   </TableHead>
                   <TableHead className="">
-                    {t("tableTransactions.columns.typeUser")}
-                  </TableHead>
-                  <TableHead className="">
                     {t("tableTransactions.columns.typeTransaction")}
                   </TableHead>
                   <TableHead className="">
@@ -157,28 +181,27 @@ export default function TransactionPage() {
                   <TableHead className="text-right">
                     {t("tableTransactions.columns.amount")}
                   </TableHead>
-                  <TableHead>-</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {transactionsLoading ? (
                   <SkeletonTable repeatColumn={5} repeatRow={5} />
                 ) : (
-                  transactions?.transactions.map((transaction, key) => (
+                  listTransactions.map((transaction, key) => (
                     <TableRow key={key.toString()}>
                       <TableCell>
                         <div className="font-medium">
                           {transaction.user.name}
                         </div>
-                        <div className="text-sm text-muted-foreground md:inline">
+                        <div className="text-sm text-muted-foreground">
                           {transaction.user.email}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {transaction.user.role}
                         </div>
                       </TableCell>
                       <TableCell className="table-cell">
                         {transaction.concept}
-                      </TableCell>
-                      <TableCell className="table-cell">
-                        {transaction.user.role}
                       </TableCell>
                       <TableCell className="table-cell">
                         <Badge
@@ -198,14 +221,27 @@ export default function TransactionPage() {
                       <TableCell className="text-right">
                         ${transaction.amount}
                       </TableCell>
-
-                      <TableCell className="text-right">
-                        <FiMoreHorizontal size={16} />
-                      </TableCell>
                     </TableRow>
                   ))
                 )}
               </TableBody>
+              {countTrans > currentPage ? (
+                <TableFooter>
+                  <TableRow>
+                    <TableCell colSpan={5} className="text-center w-full">
+                      <Button
+                        className="gap-2"
+                        onClick={eventHandlerShowMoreTransactions}
+                      >
+                        {t("tableTransactions.showMore")}
+                        <FiArrowDownCircle size={20} />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </TableFooter>
+              ) : (
+                <></>
+              )}
             </Table>
           </CardContent>
         </Card>
