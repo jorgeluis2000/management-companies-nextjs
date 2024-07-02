@@ -50,30 +50,49 @@
   },
   "Transaction": {
     "cardBalance": {
-      "title": "Saldo Total",
-      "extra": "Desde el principio"
+      "title": "Total Balance",
+      "extra": "all times"
     },
     "cardCountTransactions": {
-      "title": "Transiciones Totales",
-      "extra": "Desde el principio"
+      "title": "Total Transactions",
+      "extra": "all times"
     },
     "tableTransactions": {
-      "title": "Transiciones",
-      "summary": "Las transacciones recientes desde tu empresa.",
-      "more": "Ver Todo",
+      "title": "Transactions",
+      "summary": "Recent transactions from your company.",
+      "more": "View All",
+      "showMore": "Show more",
       "columns": {
-        "user": "Usuario",
-        "typeUser": "Tipo Usuario",
-        "typeTransaction": "Tipo Transacción",
-        "concept": "Concepto",
-        "date": "Fecha",
-        "amount": "Monto"
+        "user": "User",
+        "typeUser": "Type User",
+        "typeTransaction": "Type Transaction",
+        "concept": "Concept",
+        "date": "Date",
+        "amount": "Amount"
+      }
+    },
+    "sheetAddTransaction": {
+      "title": "Add a transaction",
+      "description": "In this section you can add balance entry and exit transactions.",
+      "btnSaveName": "Make transaction",
+      "inputs": {
+        "labelConcept": "Concept",
+        "placeholderConcept": "Car payment...",
+        "labelAmount": "Amount",
+        "placeholderAmount": "Payment amount",
+        "labelType": "Type",
+        "placeholderType": "Select transfer type",
+        "optionsType": {
+          "defaultValue": "Transfer type",
+          "income": "Income",
+          "expense": "Expense"
+        }
       }
     },
     "toasts": {
       "add": {
-        "title": "Exitosa",
-        "message": "Transición realzada exitosamente"
+        "title": "Success",
+        "message": "Successfully enhanced transition"
       }
     }
   }

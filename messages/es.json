@@ -61,6 +61,7 @@
       "title": "Transiciones",
       "summary": "Las transacciones recientes desde tu empresa.",
       "more": "Ver Todo",
+      "showMore": "Ver más",
       "columns": {
         "user": "Usuario",
         "typeUser": "Tipo Usuario",
@@ -68,6 +69,24 @@
         "concept": "Concepto",
         "date": "Fecha",
         "amount": "Monto"
+      }
+    },
+    "sheetAddTransaction": {
+      "title": "Agrega una transacción",
+      "description": "En este apartado podrás agregar transacciones de ingreso y de egreso de saldo.",
+      "btnSaveName": "Realizar transacción",
+      "inputs": {
+        "labelConcept": "Concepto",
+        "placeholderConcept": "Pago de carro...",
+        "labelAmount": "Monto",
+        "placeholderAmount": "Monto de pago",
+        "labelType": "Tipi",
+        "placeholderType": "Seleccione el tipo de transferencia",
+        "optionsType": {
+          "defaultValue": "Tipo transferencia",
+          "income": "Ingreso",
+          "expense": "Gasto"
+        }
       }
     },
     "toasts": {
