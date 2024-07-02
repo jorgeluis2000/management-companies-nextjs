@@ -14,7 +14,7 @@ import { FiArrowUpRight, FiCheck } from "react-icons/fi";
 import { ADD_TRANSACTION } from "../queries/TransactionQuery";
 import type { TAddTransaction } from "../domain/types/transaction/Transaction";
 import type { AddTransactionParams } from "../domain/types/transaction/TransactionParams";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -41,7 +41,7 @@ interface IProps {
 export default function SheetAddTransaction({ description, title }: IProps) {
   const t = useTranslations("Transaction");
   const router = useRouter();
-  const [addTransaction, transactionAdded] = useMutation<
+  const [addTransaction, { data: transactionAdded }] = useMutation<
     TAddTransaction,
     AddTransactionParams
   >(ADD_TRANSACTION);
@@ -64,11 +64,17 @@ export default function SheetAddTransaction({ description, title }: IProps) {
     router.reload();
   }
 
+  useEffect(() => {
+    if (transactionAdded) {
+      router.reload();
+    }
+  }, [transactionAdded, router]);
+
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button size="sm" className="ml-auto gap-1">
-          agregar
+          {t("tableTransactions.add")}
           <FiArrowUpRight size={16} />
         </Button>
       </SheetTrigger>

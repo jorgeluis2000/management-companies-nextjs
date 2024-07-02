@@ -62,6 +62,7 @@
       "summary": "Recent transactions from your company.",
       "more": "View All",
       "showMore": "Show more",
+      "add": "Add",
       "columns": {
         "user": "User",
         "typeUser": "Type User",

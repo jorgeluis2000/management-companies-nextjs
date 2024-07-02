@@ -62,6 +62,7 @@
       "summary": "Las transacciones recientes desde tu empresa.",
       "more": "Ver Todo",
       "showMore": "Ver más",
+      "add": "Agregar",
       "columns": {
         "user": "Usuario",
         "typeUser": "Tipo Usuario",
