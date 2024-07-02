@@ -47,5 +47,34 @@
   "QueryError": {
     "sessionAuthorization": "You do not have the permissions allowed to perform this action.",
     "notAuthenticated": "You are not logged in yet."
+  },
+  "Transaction": {
+    "cardBalance": {
+      "title": "Saldo Total",
+      "extra": "Desde el principio"
+    },
+    "cardCountTransactions": {
+      "title": "Transiciones Totales",
+      "extra": "Desde el principio"
+    },
+    "tableTransactions": {
+      "title": "Transiciones",
+      "summary": "Las transacciones recientes desde tu empresa.",
+      "more": "Ver Todo",
+      "columns": {
+        "user": "Usuario",
+        "typeUser": "Tipo Usuario",
+        "typeTransaction": "Tipo Transacción",
+        "concept": "Concepto",
+        "date": "Fecha",
+        "amount": "Monto"
+      }
+    },
+    "toasts": {
+      "add": {
+        "title": "Exitosa",
+        "message": "Transición realzada exitosamente"
+      }
+    }
   }
 }
