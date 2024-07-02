@@ -29,6 +29,13 @@ export type TGetUserByEmail = {
   userByEmail: TUser
 };
 
+export type TListUser = {
+  users: TUser[];
+}
+
+export type TAddUser = {
+  addUser: TUser
+}
 
 export type TCurrentCountUsers = {
   countUsers: number

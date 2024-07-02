@@ -32,6 +32,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/router";
 import type { TTransactionAdd } from "../domain/types/forms/TransactionForms";
 import type { TypeTransaction } from "@prisma/client";
+import Required from "./Required";
 
 interface IProps {
   title: string | React.ReactNode;
@@ -89,7 +90,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
         >
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="concept-transaction-add" className="text-right">
-              {t("sheetAddTransaction.inputs.labelConcept")}
+            <Required /> {t("sheetAddTransaction.inputs.labelConcept")}
             </Label>
             <Input
               id="concept-transaction-add"
@@ -101,7 +102,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="amount-transaction-add" className="text-right">
-              {t("sheetAddTransaction.inputs.labelAmount")}
+              {t("sheetAddTransaction.inputs.labelAmount")} <Required />
             </Label>
             <Input
               id="amount-transaction-add"
@@ -114,7 +115,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="type-transaction-add" className="text-right">
-              {t("sheetAddTransaction.inputs.labelType")}
+              {t("sheetAddTransaction.inputs.labelType")} <Required />
             </Label>
             <Select name="type">
               <SelectTrigger id="type-transaction-add" className="col-span-3">

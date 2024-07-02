@@ -58,3 +58,57 @@ query Query($email: String!) {
   }
 }
 `;
+
+export const LIST_USERS = gql`
+query Query($limit: Int!, $page: Int!) {
+  users(limit: $limit, page: $page) {
+    id
+    name
+    email
+    role
+    phone
+    userConfig {
+      id
+      language {
+        name
+        code
+      }
+      theme
+      timeZone {
+        utcOffset
+        zone
+      }
+    }
+    updatedAt
+    image
+    createdAt
+  }
+}
+`;
+
+export const ADD_USER = gql`
+mutation Mutation($email: String!, $name: String!, $password: String!, $role: Role!, $language: String!, $timeZone: String!, $theme: UserTheme!, $phone: String, $image: String) {
+  addUser(email: $email, name: $name, password: $password, role: $role, language: $language, timeZone: $timeZone, theme: $theme, phone: $phone, image: $image) {
+    id
+    email
+    image
+    name
+    phone
+    role
+    updatedAt
+    createdAt
+    userConfig {
+      id
+      theme
+      language {
+        code
+        name
+      }
+      timeZone {
+        utcOffset
+        zone
+      }
+    }
+  }
+}
+`;

@@ -46,7 +46,8 @@ export default class UserUseCase {
 
   public async addUser(data: AddUserParams) {
     try {
-      return await this.userRepository.addUser(data);
+      const user = await this.userRepository.addUser(data);
+      return user
     } catch (error) {
       throw new Error("Invalid credentials");
     }

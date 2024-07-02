@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FiLogOut, FiMoreHorizontal, FiUser } from "react-icons/fi";
+import { FiMoreHorizontal } from "react-icons/fi";
 import { useRouter } from "next/router";
 
 interface IProps {
@@ -45,7 +45,7 @@ export default function SidebarDesktop({ title, sidebarItems, profile }: IProps)
                                     <div className='flex justify-between items-center w-full'>
                                         <div className='flex gap-2'>
                                             <Avatar className='h-5 w-5'>
-                                                <AvatarImage src='https://github.com/max-programming.png' />
+                                                <AvatarImage src={profile.href ?? 'https://github.com/shadcn.png'} />
                                                 <AvatarFallback>{profile.name}</AvatarFallback>
                                             </Avatar>
                                             <span>{profile.name}</span>

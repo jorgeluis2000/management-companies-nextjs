@@ -24,6 +24,9 @@ import SidebarMobile from "../sidebar/SidebarMobile";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
+import type { GetStaticPropsContext } from "next";
+import Footer from "../Footer";
+import FooterItem from "../FooterItem";
 
 interface IProps {
   children?: React.ReactNode;
@@ -32,20 +35,23 @@ interface IProps {
 
 export default function DashboardLayout({ children, className }: IProps) {
   const { status, data } = useSession();
+  const t = useTranslations("Navigation");
+  const router = useRouter();
+  const sizeIcon = 20;
   const { setTheme } = useTheme();
   const [sessionUser, setSessionUser] = useState<IUserSession>();
   const [profileOp, setProfileOp] = useState<SidebarProfile>({
     name: "-",
-    href: "https://github.com/max-programming.png",
+    href: "/defaultProfile.png",
     options: (
       <div className="space-y-1">
-        <Link href="/dashboard/profile">
+        <Link href={`/${router.locale}/dashboard/profile`}>
           <SidebarButton
             size="sm"
             icon={<FiUser size={20} />}
             className="w-full"
           >
-            Account Settings
+            {t("profile")}
           </SidebarButton>
         </Link>
         <SidebarButton
@@ -60,7 +66,7 @@ export default function DashboardLayout({ children, className }: IProps) {
           }}
           className="w-full"
         >
-          Log Out
+          {t("logout")}
         </SidebarButton>
       </div>
     ),
@@ -78,31 +84,28 @@ export default function DashboardLayout({ children, className }: IProps) {
     "modeTheme",
     "auto",
   );
-  const t = useTranslations();
-  const router = useRouter();
 
-  const sizeIcon = 20;
   const sidebarItems: SidebarItems = {
     links: [
       {
-        label: "Home",
+        label: t("home"),
         href: `/${router.locale}/dashboard`,
         icon: <FiHome size={sizeIcon} />,
       },
       {
-        label: "Transactions",
+        label: t("transactions"),
         href: `/${router.locale}/dashboard/transaction`,
         icon: <FiDollarSign size={sizeIcon} />,
       },
       {
-        label: "Reports",
+        label: t("reports"),
         href: `/${router.locale}/dashboard/reports`,
         icon: <FiBarChart size={sizeIcon} />,
       },
       {
+        label: t("communities"),
         href: "/dashboard/communities",
         icon: <FiUsers size={sizeIcon} />,
-        label: "Communities",
       },
     ],
   };
@@ -167,6 +170,25 @@ export default function DashboardLayout({ children, className }: IProps) {
       >
         {children}
       </div>
+      <footer className="sm:ml-[300px] w-full">
+        <Footer
+          year="2024"
+          by="Jorge Luis Güiza Granobles"
+          description="All Rights Reserved."
+        >
+          <FooterItem href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+            Licensing
+          </FooterItem>
+        </Footer>
+      </footer>
     </>
   );
+}
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: (await import(`../../../../messages/${locale}.json`)).default,
+    },
+  };
 }

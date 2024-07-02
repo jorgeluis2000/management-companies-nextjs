@@ -99,7 +99,7 @@ export const resolvers = {
       args: AddUserParams,
       context: Context,
     ) => {
-      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+      if (context.session?.user.id && context.session.user.role === "ADMIN") {
         return await userUseCase.addUser(args);
       }
       if (context.session?.user.id && context.session.user.role !== "ADMIN") {

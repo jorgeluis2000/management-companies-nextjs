@@ -1,13 +1,9 @@
-
-
 export type TTransactionAdd = {
-    amount: ValueItem<string>
-    concept: ValueItem<string>
-    type: ValueItem<string>
+  amount: ValueItem<string>;
+  concept: ValueItem<string>;
+  type: ValueItem<string>;
+};
 
-}
-
-
-export type ValueItem<T> = {
-    value: T
-}
+type ValueItem<T> = {
+  value: T;
+};

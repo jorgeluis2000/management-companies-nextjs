@@ -21,6 +21,7 @@ export default class UserRepository {
         select: {
           id: true,
           email: true,
+          idAuthZero: true,
           name: true,
           role: true,
           image: true,
@@ -62,6 +63,7 @@ export default class UserRepository {
         select: {
           id: true,
           email: true,
+          idAuthZero: true,
           name: true,
           role: true,
           image: true,
@@ -101,6 +103,7 @@ export default class UserRepository {
         select: {
           id: true,
           email: true,
+          idAuthZero: true,
           name: true,
           role: true,
           image: true,
@@ -231,6 +234,7 @@ export default class UserRepository {
           name: data.name,
           role: data.role,
           image: data.image,
+          phone: data.phone,
           password: data.password,
           userConfig: {
             update: {
@@ -285,6 +289,7 @@ export default class UserRepository {
         select: {
           id: true,
           email: true,
+          idAuthZero: true,
           name: true,
           role: true,
           image: true,

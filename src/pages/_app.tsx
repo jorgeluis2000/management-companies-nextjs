@@ -25,7 +25,7 @@ export default function App({
 
   return (
     <div
-      className={`bg-background font-sans antialiased ${fontSans.className}`}
+      className={`bg-background font-sans antialiased overflow-x-hidden ${fontSans.className}`}
     >
       <SessionProvider session={pageProps.session}>
         <ApolloProvider client={clientApollo}>
