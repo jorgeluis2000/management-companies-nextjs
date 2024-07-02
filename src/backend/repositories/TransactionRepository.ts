@@ -33,6 +33,11 @@ export default class TransactionRepository {
             },
           },
         },
+        orderBy: [
+          {
+            amount: 'desc'
+          }
+        ],
         skip,
         take: data.limit,
       });

@@ -28,3 +28,20 @@ query Query {
   currentBalance
 }
 `;
+
+export const ADD_TRANSACTION = gql`
+mutation Mutation($concept: String!, $amount: Float!, $typeTransaction: TypeTransaction!) {
+  addTransaction(concept: $concept, amount: $amount, typeTransaction: $typeTransaction) {
+    amount
+    concept
+    createdAt
+    id
+    typeTransaction
+    user {
+      name
+      id
+      role
+    }
+  }
+}
+`;

@@ -111,6 +111,7 @@ export default function DashboardLayout({ children, className }: IProps) {
     initializeWithValue: false,
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (status === "unauthenticated") {
       Router.replace(`/${Router.locale}/auth/signin`);
@@ -123,7 +124,7 @@ export default function DashboardLayout({ children, className }: IProps) {
         href: sessionUser?.user.image ?? before.href,
       }));
     }
-  });
+  }, [status, setSessionUser, setProfileOp, sessionUser]);
 
   useEffect(() => {
     if (sessionUser) {
