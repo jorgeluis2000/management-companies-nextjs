@@ -10,7 +10,7 @@ RUN pnpm i --frozen-lockfile
 
 COPY . .
 
-RUN pnpm prisma generate
+RUN pnpm prisma:generate
 RUN pnpm build
 
 FROM node:18-alpine AS runner

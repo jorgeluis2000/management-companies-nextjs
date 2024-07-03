@@ -11,7 +11,10 @@
     "biome:format": "biome format --write ./src",
     "biome:lint": "biome lint --write ./src",
     "biome:check": "biome check --write ./src",
-    "ts-node": "ts-node --compiler-options {\"module\":\"CommonJS\"}"
+    "ts-node": "ts-node --compiler-options {\"module\":\"CommonJS\"}",
+    "prisma:push": "prisma db push",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "npx prisma db seed"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
