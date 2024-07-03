@@ -1,19 +1,26 @@
 import { prisma } from "@app/backend/config/database/config";
 import UserRepository from "@app/backend/repositories/UserRepository";
 import UserUseCase from "@app/backend/usecase/user/UserUseCase";
+import UserValidator from "@app/backend/validators/UserValidator";
 import type {
   IUserSession,
   IUserSessionToken,
   UserAuth,
 } from "@app/utils/domain/types/user/UserSession";
 import {
+  InvalidCredentialError,
+  UnknownError,
+} from "@app/utils/errors/ExceptionFactory";
+import {
   getMessages,
   resolveLocale,
 } from "@app/utils/services/HandlerServerService";
 import type { NextApiRequest } from "next";
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { type User, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createTranslator } from "next-intl";
+import Auth0Provider from "next-auth/providers/auth0";
+import type { TUser } from "@app/utils/domain/types/user/User";
 
 type CredentialsProviderProps = {
   email: string;
@@ -25,6 +32,45 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   providers: [
+    Auth0Provider({
+      clientId: process.env.AUTH0_CLIENT_ID ?? "",
+      clientSecret: process.env.AUTH0_CLIENT_SECRET ?? "",
+      issuer: process.env.AUTH0_ISSUER_BASE_URL,
+      async profile(profile, tokens) {
+        const credential: User = {
+          id: profile.aud,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+        const userRepository = new UserRepository(prisma);
+        const userUseCase = new UserUseCase(userRepository);
+        let userCreated: TUser | null = null
+        const user = await userUseCase.getUserByEmail(profile.email);
+        
+        if (!user) {
+          userCreated = await userUseCase.addUser({
+            email: profile.email,
+            language: "es",
+            name: profile.name,
+            password: "",
+            role: "ADMIN",
+            theme: "AUTO",
+            timeZone: "America/Bogota",
+            image: profile.picture,
+            phone: ""
+          })
+          if (userCreated) {
+            credential.id = userCreated.id
+          } else {
+            throw new InvalidCredentialError("Lo sentimos tuvimos problemas con la session vuelve a intentarlo más tarde.")
+          }
+        } else {
+          credential.id = user.id
+        }
+        return credential
+      },
+    }),
     CredentialsProvider({
       type: "credentials",
       credentials: {
@@ -47,14 +93,32 @@ export const authOptions: NextAuthOptions = {
         try {
           const userRepository = new UserRepository(prisma);
           const userUseCase = new UserUseCase(userRepository);
+          const userValidator = new UserValidator();
+          const validationAuth = userValidator.validationAuth({
+            email,
+            password,
+          });
+          if (validationAuth.length > 0) {
+            throw new InvalidCredentialError(validationAuth[0].message);
+          }
           const user = await userUseCase.authUser({ email, password });
           if (!user) {
-            throw new Error(t("QueryError.invalidCredentials"));
+            throw new InvalidCredentialError(
+              t("QueryError.invalidCredentials"),
+            );
           }
           const newSession: UserAuth = user;
           return newSession;
         } catch (error) {
-          throw new Error(t("QueryError.invalidCredentials"));
+          const catchError: { name: string; message: string } = error as {
+            name: string;
+            message: string;
+          };
+          if (catchError.name === "InvalidCredentialError") {
+            throw new InvalidCredentialError(catchError.message);
+          }
+
+          throw new UnknownError(t("QueryError.invalidCredentials"));
         }
       },
     }),
@@ -71,6 +135,7 @@ export const authOptions: NextAuthOptions = {
       const user = await userUseCase.session({ email: token.email ?? "" });
       if (user) {
         token.role = user.role;
+        token.role = user.phone;
         token.picture = user.image;
         token.language = user.userConfig.language;
         token.theme = user.userConfig.theme;
@@ -85,6 +150,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         const newToken = token as IUserSessionToken;
         newSession.user.id = newToken.sub;
+        newSession.user.phone = newToken?.phone;
         newSession.user.role = newToken?.role;
         newSession.user.image = newToken.picture;
         newSession.user.language = newToken.language;

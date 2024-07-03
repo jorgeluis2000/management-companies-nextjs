@@ -15,11 +15,12 @@ export interface IUserSession extends Session {
     name?: string;
     email?: string;
     image?: string | null;
+    phone?: string | null;
     id?: string;
     role?: Role;
     theme?: UserTheme;
     timeZone?: string;
-    language?: {code: string; name: string};
+    language?: { code: string; name: string };
   };
 }
 
@@ -27,9 +28,10 @@ export interface IUserSessionToken extends JWT {
   name?: string;
   email?: string;
   picture?: string | null;
+  phone?: string | null;
   id?: string;
   role?: Role;
   theme?: UserTheme;
   timeZone?: string;
-  language?: {code: string; name: string};
+  language?: { code: string; name: string };
 }

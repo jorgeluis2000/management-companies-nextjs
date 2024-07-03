@@ -1,4 +1,5 @@
 import type UserRepository from "@app/backend/repositories/UserRepository";
+import type { TUser } from "@app/utils/domain/types/user/User";
 import type {
   AddUserParams,
   AuthUserParams,
@@ -8,6 +9,7 @@ import type {
   ListUserParams,
   UpdateUserParams,
 } from "@app/utils/domain/types/user/UserParams";
+import { InvalidCredentialError } from "@app/utils/errors/ExceptionFactory";
 
 export default class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
@@ -46,10 +48,10 @@ export default class UserUseCase {
 
   public async addUser(data: AddUserParams) {
     try {
-      const user = await this.userRepository.addUser(data);
+      const user: TUser | null = await this.userRepository.addUser(data);
       return user
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 

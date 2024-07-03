@@ -12,6 +12,7 @@ import { useState } from "react";
 import { FiAlertOctagon, FiCheck, FiLoader } from "react-icons/fi";
 import { HiHome, HiOutlineArrowRight } from "react-icons/hi";
 import { toast } from "sonner";
+import { SiAuth0 } from "react-icons/si";
 
 export default function SignInPage(props: NextPage) {
   const t = useTranslations("SignIn");
@@ -83,20 +84,54 @@ export default function SignInPage(props: NextPage) {
                 required
               />
             </div>
-            <Button type="submit">
+            <Button className="gap-2" type="submit">
               {t("btnSignIn")}
-              <HiOutlineArrowRight className="ml-2 h-5 w-5" />
+              <HiOutlineArrowRight size={20} />
+            </Button>
+            <Button
+              variant={"outline"}
+              className="gap-2"
+              type="button"
+              onClick={async (e) => {
+                e.preventDefault();
+                toast("Loading", {
+                  richColors: true,
+                  icon: (
+                    <FiLoader
+                      size={20}
+                      className="animate-pulse text-slate-600"
+                    />
+                  ),
+                });
+                const response = await signIn("auth0", { redirect: true });
+                if (response?.ok) {
+                  toast("Success", {
+                    richColors: true,
+                    icon: <FiCheck size={20} className="text-green-600" />,
+                  });
+                } else {
+                  toast("Error", {
+                    richColors: true,
+                    icon: <FiAlertOctagon size={20} className="text-red-600" />,
+                    description: response?.error,
+                  });
+                }
+              }}
+            >
+              {t("btnSignIn")}
+              <SiAuth0 size={20} />
             </Button>
             <HRText text={t("hr")} />
             <Button
               variant="outline"
               type="button"
+              className="gap-2"
               onClick={() => {
                 router.replace(`/${router.locale}`);
               }}
             >
               {t("btnGoBack")}
-              <HiHome className="ml-2 h-5 w-5" />
+              <HiHome size={20} />
             </Button>
           </form>
         </CardContent>

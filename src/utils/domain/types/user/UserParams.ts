@@ -18,7 +18,7 @@ export type AddUserParams = {
   name: string;
   role: Role;
   image?: string;
-  phone: string;
+  phone?: string;
   password: string;
   language: string;
   timeZone: string;

@@ -6,7 +6,7 @@ export type TUser = {
   email: string;
   name: string;
   role: Role;
-  phone: string;
+  phone: string | null;
   userConfig: TUserConfig;
   createdAt: Date;
   updatedAt: Date;

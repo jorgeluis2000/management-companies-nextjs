@@ -18,11 +18,19 @@ import type {
   GetChartDataParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
+import {
+  InvalidCredentialError,
+  NotAuthenticatedError,
+  SessionError,
+  UnknownError,
+} from "@app/utils/errors/ExceptionFactory";
+import UserValidator from "../validators/UserValidator";
 
 const userRepository = new UserRepository(prisma);
 const transactionRepository = new TransactionRepository(prisma);
 const userUseCase = new UserUseCase(userRepository);
 const transactionUseCase = new TransactionUseCase(transactionRepository);
+const userValidator = new UserValidator();
 
 export const resolvers = {
   Query: {
@@ -123,13 +131,37 @@ export const resolvers = {
       args: AddUserParams,
       context: Context,
     ) => {
-      if (context.session?.user.id && context.session.user.role === "ADMIN") {
-        return await userUseCase.addUser(args);
+      try {
+        if (context.session?.user.id && context.session.user.role === "ADMIN") {
+          const validationAddUser = userValidator.validationAddUser(args);
+          if (validationAddUser.length > 0) {
+            throw new InvalidCredentialError(validationAddUser[0].message);
+          }
+          return await userUseCase.addUser(args);
+        }
+        if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+          throw new SessionError(context.t("QueryError.sessionAuthorization"));
+        }
+        throw new NotAuthenticatedError(context.t("QueryError.notAuthenticated"));
+      } catch (error) {
+        const catchError: { name: string; message: string } = error as {
+          name: string;
+          message: string;
+        };
+        if (catchError.name === "InvalidCredentialError") {
+          throw new InvalidCredentialError(catchError.message);
+        }
+        if (catchError.name === "NotAuthenticatedError") {
+          throw new NotAuthenticatedError(catchError.message);
+        }
+
+        if (catchError.name === "NotAuthenticatedError") {
+          throw new SessionError(catchError.message);
+        }
+
+        throw new UnknownError(context.t("QueryError.invalidCredentials"));
       }
-      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
-        throw new Error(context.t("QueryError.sessionAuthorization"));
-      }
-      throw new Error(context.t("QueryError.notAuthenticated"));
+      
     },
     updateUser: async (
       _parent: unknown,
