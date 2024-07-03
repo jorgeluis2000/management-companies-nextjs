@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  management-companies:
+    build: .
+    restart: always
+    ports:
+     - 3555:3000
+    env_file: .env
