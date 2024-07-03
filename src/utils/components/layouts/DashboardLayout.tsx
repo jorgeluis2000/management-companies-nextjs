@@ -85,7 +85,7 @@ export default function DashboardLayout({ children, className }: IProps) {
     "auto",
   );
 
-  const sidebarItems: SidebarItems = {
+  const [sidebarItems, setSidebarItems] = useState<SidebarItems>({
     links: [
       {
         label: t("home"),
@@ -108,7 +108,7 @@ export default function DashboardLayout({ children, className }: IProps) {
         icon: <FiUsers size={sizeIcon} />,
       },
     ],
-  };
+  });
 
   const isDesktop = useMediaQuery("(min-width: 640px)", {
     initializeWithValue: false,
@@ -149,6 +149,25 @@ export default function DashboardLayout({ children, className }: IProps) {
       setTheme(sessionUser.user.theme?.toLocaleUpperCase() ?? "auto");
     }
   }, [sessionUser, setTimezone, setLanguage, setModeTheme, setTheme]);
+
+  useEffect(() => {
+    if (sessionUser && sessionUser.user.role !== "ADMIN") {
+      setSidebarItems({
+        links: [
+          {
+            label: t("home"),
+            href: `/${router.locale}/dashboard`,
+            icon: <FiHome size={sizeIcon} />,
+          },
+          {
+            label: t("transactions"),
+            href: `/${router.locale}/dashboard/transaction`,
+            icon: <FiDollarSign size={sizeIcon} />,
+          },
+        ],
+      });
+    }
+  }, [sessionUser, router, t]);
 
   return (
     <>

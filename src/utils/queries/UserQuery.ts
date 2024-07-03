@@ -112,3 +112,31 @@ mutation Mutation($email: String!, $name: String!, $password: String!, $role: Ro
   }
 }
 `;
+
+
+export const UPDATE_USER = gql`
+mutation UpdateUser($id: ID!, $role: Role, $name: String) {
+  updateUser(id: $id, role: $role, name: $name) {
+    createdAt
+    email
+    id
+    image
+    name
+    phone
+    role
+    userConfig {
+      id
+      language {
+        name
+        code
+      }
+      theme
+      timeZone {
+        utcOffset
+        zone
+      }
+    }
+    updatedAt
+  }
+}
+`

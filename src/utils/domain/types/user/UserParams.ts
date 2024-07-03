@@ -28,8 +28,8 @@ export type AddUserParams = {
 export type UpdateUserParams = {
   id: string;
   email?: string;
-  name?: string;
-  role?: Role;
+  name: string;
+  role: Role;
   image?: string;
   phone?: string;
   password?: string;

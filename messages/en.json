@@ -118,7 +118,8 @@
     "sheetAddUser": {
       "title": "Agregar nuevo usuario",
       "description": "En este apartado podrás agregar usuarios de diferentes roles.",
-      "btnSaveName": "Crear usuario",
+      "btnSubmit": "Crear usuario",
+      "btnCancel": "Crear usuario",
       "inputs": {
         "labelName": "Nombre",
         "placeholderName": "Federico Ramirez...",
@@ -169,6 +170,21 @@
       "btnShow": "Ver",
       "btnCancel": "Cancelar"
     },
+    "dialogUpdateUser": {
+      "btnCancel": "Cancelar",
+      "btnSubmit": "Guardar cambios",
+      "inputs": {
+        "labelName": "Nombre",
+        "placeholderName": "Federico Ramirez...",
+        "labelRole": "Rol",
+        "placeholderRole": "Selecciona un rol",
+        "optionsRole": {
+          "defaultValue": "Rol del usuario",
+          "admin": "Administrador",
+          "user": "Empleado"
+        }
+      }
+    },
     "toasts": {
       "add": {
         "title": "Exitosa",
@@ -177,6 +193,18 @@
       "errorAdd": {
         "title": "Error",
         "message": "Valida que tu contraseña y la contraseña de confirmación sean las mismas."
+      },
+      "update": {
+        "title": "Exitosa",
+        "message": "Se a actualizado los datos del usuario."
+      },
+      "errorUpdate": {
+        "title": "Error",
+        "message": "Lo sentimos no pudimos actualizar el usuario."
+      },
+      "loading": {
+        "title": "Procesando",
+        "message": "Se están procesando los datos..."
       }
     }
   },
