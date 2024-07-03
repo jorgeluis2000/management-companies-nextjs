@@ -110,7 +110,7 @@
       "columns": {
         "actions": " - ",
         "user": "Usuario",
-        "role": "Role",
+        "role": "Rol",
         "phone": "# Cel",
         "date": "Fecha de creación"
       }
@@ -206,6 +206,12 @@
         "title": "Procesando",
         "message": "Se están procesando los datos..."
       }
+    }
+  },
+  "Report": {
+    "cardBalance": {
+      "title":"Saldo Total",
+      "extra":"Desde el principio"
     }
   },
   "Navigation": {

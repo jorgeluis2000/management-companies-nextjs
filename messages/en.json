@@ -99,113 +99,119 @@
   },
   "Community": {
     "cardUser": {
-      "title": "Usuarios",
-      "extra": "Desde el principio"
+      "title": "Users",
+      "extra": "all times"
     },
     "tableUser": {
-      "add": "Agregar",
-      "title": "Usuarios",
-      "summary": "Todos los usuarios de la empresa.",
-      "showMore": "Ver más",
+      "add": "Add",
+      "title": "Users",
+      "summary": "All company users.",
+      "showMore": "Show more",
       "columns": {
         "actions": " - ",
-        "user": "Usuario",
+        "user": "User",
         "role": "Role",
-        "phone": "# Cel",
-        "date": "Fecha de creación"
+        "phone": "Phone",
+        "date": "Created Date"
       }
     },
     "sheetAddUser": {
-      "title": "Agregar nuevo usuario",
-      "description": "En este apartado podrás agregar usuarios de diferentes roles.",
-      "btnSubmit": "Crear usuario",
-      "btnCancel": "Crear usuario",
+      "title": "Add new user",
+      "description": "In this section you can add users with different roles.",
+      "btnSubmit": "Create user",
+      "btnCancel": "Cancel",
       "inputs": {
-        "labelName": "Nombre",
+        "labelName": "Name",
         "placeholderName": "Federico Ramirez...",
         "labelEmail": "Email",
-        "placeholderEmail": "Tu email",
-        "labelPhone": "Celular",
-        "placeholderPhone": "Tu número de celular",
-        "labelImage": "Imagen",
-        "placeholderImage": "URL de la imagen",
+        "placeholderEmail": "Your email",
+        "labelPhone": "Phone",
+        "placeholderPhone": "Your phone",
+        "labelImage": "Image",
+        "placeholderImage": "Image URL",
         "labelRole": "Rol",
-        "placeholderRole": "Selecciona un rol",
+        "placeholderRole": "Select a role",
         "optionsRole": {
-          "defaultValue": "Rol del usuario",
-          "admin": "Administrador",
-          "user": "Empleado"
+          "defaultValue": "User role",
+          "admin": "Admin",
+          "user": "Employee"
         },
-        "labelTheme": "Tema",
-        "placeholderTheme": "Selecciona un tema",
+        "labelTheme": "Theme",
+        "placeholderTheme": "Select a theme",
         "optionsTheme": {
-          "defaultValue": "Tema de la vista del usuario",
-          "dark": "Oscuro",
-          "light": "Claro",
-          "auto": "Automático/Sistema"
+          "defaultValue": "User View Theme",
+          "dark": "Dark",
+          "light": "Light",
+          "auto": "Automatic/System"
         },
-        "labelTimezone": "Zona horaria",
-        "placeholderTimezone": "Selecciona un zona horaria",
+        "labelTimezone": "Time zone",
+        "placeholderTimezone": "Select a time zone",
         "optionsTimezone": {
-          "defaultValue": "Selecciona un zona horaria...",
-          "notFound": "No se encuentran zonas horarias relacionados.",
-          "search": "Buscar zona horaria..."
+          "defaultValue": "Select a time zone...",
+          "notFound": "No related time zones found.",
+          "search": "Search time zone..."
         },
-        "labelLanguage": "Lenguaje",
-        "placeholderLanguage": "Selecciona un lenguaje",
+        "labelLanguage": "Language",
+        "placeholderLanguage": "Select a language",
         "optionsLanguage": {
-          "defaultValue": "Selecciona un lenguaje...",
-          "notFound": "No se encuentran lenguajes relacionados.",
-          "search": "Buscar lenguaje..."
+          "defaultValue": "Select a language...",
+          "notFound": "No related languages ​​found.",
+          "search": "Search language..."
         },
-        "labelPassword": "Contraseña",
-        "placeholderPassword": "Tu contraseña",
-        "labelPasswordConfirm": "Contraseña de confirmación",
-        "placeholderPasswordConfirm": "Confirma tu contraseña"
+        "labelPassword": "Password",
+        "placeholderPassword": "Your password",
+        "labelPasswordConfirm": "Confirmation password",
+        "placeholderPasswordConfirm": "Confirm your password"
       }
     },
     "dialogShowUser": {
-      "title": "Información Usuario",
-      "description": "Encuentra toda la información completa de los usuarios en estas ventanas.",
-      "btnShow": "Ver",
-      "btnCancel": "Cancelar"
+      "title": "User Information",
+      "description": "Find all the complete information of the users in these windows.",
+      "btnShow": "Show",
+      "btnCancel": "Cancel"
     },
     "dialogUpdateUser": {
-      "btnCancel": "Cancelar",
-      "btnSubmit": "Guardar cambios",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Save changes",
       "inputs": {
-        "labelName": "Nombre",
+        "labelName": "Name",
         "placeholderName": "Federico Ramirez...",
-        "labelRole": "Rol",
-        "placeholderRole": "Selecciona un rol",
+        "labelRole": "Role",
+        "placeholderRole": "Select a role",
         "optionsRole": {
-          "defaultValue": "Rol del usuario",
-          "admin": "Administrador",
-          "user": "Empleado"
+          "defaultValue": "User role",
+          "admin": "Admin",
+          "user": "Employee"
         }
       }
     },
     "toasts": {
       "add": {
-        "title": "Exitosa",
-        "message": "Se a agregado un nuevo usuario exitosamente."
+        "title": "Success",
+        "message": "A new user has been added successfully."
       },
       "errorAdd": {
         "title": "Error",
-        "message": "Valida que tu contraseña y la contraseña de confirmación sean las mismas."
+        "message": "Validate that your password and the confirmation password are the same."
       },
       "update": {
-        "title": "Exitosa",
-        "message": "Se a actualizado los datos del usuario."
+        "title": "Success",
+        "message": "The user's data has been updated."
       },
       "errorUpdate": {
         "title": "Error",
-        "message": "Lo sentimos no pudimos actualizar el usuario."
+        "message": "Sorry we couldn't update the user."
       },
       "loading": {
-        "title": "Procesando",
-        "message": "Se están procesando los datos..."
+        "title": "Loading...",
+        "message": "Data is being processed..."
       }
+    }
+  },
+  "Report": {
+    "cardBalance": {
+      "title":"Saldo Total",
+      "extra":"Desde el principio"
     }
   },
   "Navigation": {
