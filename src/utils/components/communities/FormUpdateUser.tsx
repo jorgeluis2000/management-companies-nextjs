@@ -145,7 +145,7 @@ export default function FormUpdateUser({ user }: IProps) {
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   return {
     props: {
-      messages: (await import(`../../../../../messages/${locale}.json`))
+      messages: (await import(`../../../../messages/${locale}.json`))
         .default,
     },
   };
