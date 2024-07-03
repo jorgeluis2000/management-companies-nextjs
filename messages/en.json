@@ -46,7 +46,8 @@
   },
   "QueryError": {
     "sessionAuthorization": "You do not have the permissions allowed to perform this action.",
-    "notAuthenticated": "You are not logged in yet."
+    "notAuthenticated": "You are not logged in yet.",
+    "invalidCredentials": "Invalidated credentials, verify the data you are entering."
   },
   "Transaction": {
     "cardBalance": {

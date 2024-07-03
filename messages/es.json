@@ -46,7 +46,8 @@
   },
   "QueryError": {
     "sessionAuthorization": "No tienes los permisos suficientes para realizar esta acción",
-    "notAuthenticated": "No has iniciado sesión aún."
+    "notAuthenticated": "No has iniciado sesión aún.",
+    "invalidCredentials": "Credenciales invalidadas, verifica los datos que estas ingresando."
   },
   "Transaction": {
     "cardBalance": {

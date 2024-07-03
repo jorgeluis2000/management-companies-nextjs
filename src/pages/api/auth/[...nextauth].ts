@@ -1,9 +1,19 @@
 import { prisma } from "@app/backend/config/database/config";
 import UserRepository from "@app/backend/repositories/UserRepository";
 import UserUseCase from "@app/backend/usecase/user/UserUseCase";
-import type { IUserSession, IUserSessionToken, UserAuth } from "@app/utils/domain/types/user/UserSession";
+import type {
+  IUserSession,
+  IUserSessionToken,
+  UserAuth,
+} from "@app/utils/domain/types/user/UserSession";
+import {
+  getMessages,
+  resolveLocale,
+} from "@app/utils/services/HandlerServerService";
+import type { NextApiRequest } from "next";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { createTranslator } from "next-intl";
 
 type CredentialsProviderProps = {
   email: string;
@@ -28,17 +38,23 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const { email, password } =
           credentials as unknown as CredentialsProviderProps;
+        const locale = resolveLocale(req as NextApiRequest);
+        const messages = await getMessages(locale);
+        const t = createTranslator({
+          locale,
+          messages,
+        });
         try {
           const userRepository = new UserRepository(prisma);
           const userUseCase = new UserUseCase(userRepository);
           const user = await userUseCase.authUser({ email, password });
           if (!user) {
-            throw new Error("Invalid credentials");
+            throw new Error(t("QueryError.invalidCredentials"));
           }
-          const newSession: UserAuth = user
+          const newSession: UserAuth = user;
           return newSession;
         } catch (error) {
-          throw new Error("Invalid credentials");
+          throw new Error(t("QueryError.invalidCredentials"));
         }
       },
     }),
@@ -65,9 +81,9 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      const newSession = session as IUserSession
+      const newSession = session as IUserSession;
       if (token) {
-        const newToken = token as IUserSessionToken
+        const newToken = token as IUserSessionToken;
         newSession.user.id = newToken.sub;
         newSession.user.role = newToken?.role;
         newSession.user.image = newToken.picture;

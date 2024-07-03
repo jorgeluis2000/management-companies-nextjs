@@ -62,7 +62,7 @@ export default function DashboardLayout({ children, className }: IProps) {
               richColors: true,
               icon: <FiMeh size={20} className="text-amber-600" />,
             });
-            signOut();
+            signOut({ redirect: true, callbackUrl: `/${router.locale}` });
           }}
           className="w-full"
         >
@@ -117,7 +117,7 @@ export default function DashboardLayout({ children, className }: IProps) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (status === "unauthenticated") {
-      Router.replace(`/${Router.locale}/auth/signin`);
+      router.replace(`/${router.locale}/auth/signin`);
     }
     if (status === "authenticated") {
       setSessionUser(data as IUserSession);
