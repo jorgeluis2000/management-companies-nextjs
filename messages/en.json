@@ -210,9 +210,33 @@
     }
   },
   "Report": {
+    "title": "Reporte de transacciones",
+    "btnDownload": "Descargar",
     "cardBalance": {
-      "title":"Saldo Total",
-      "extra":"Desde el principio"
+      "title": "Saldo Total",
+      "extra": "Desde el principio"
+    },
+    "cardCountTransactions": {
+      "title": "Transiciones Totales",
+      "extra": "Desde el principio"
+    },
+    "inputs": {
+      "labelType": "Tipo",
+      "placeholderType": "Seleccione el tipo de transferencia",
+      "optionsType": {
+        "defaultValue": "Tipo transferencia",
+        "income": "Ingresos",
+        "expense": "Gastos"
+      },
+      "labelTime": "Rango de tiempo",
+      "placeholderTime": "Seleccione el rango",
+      "optionsTime": {
+        "defaultValue": "Rango de tiempo",
+        "last_7_days": "Últimos 7 días",
+        "last_30_days": "Últimos 30 días",
+        "all_time": "Desde el principio",
+        "today": "Hoy"
+      }
     }
   },
   "Navigation": {

@@ -30,6 +30,21 @@ query Query {
 }
 `;
 
+export const GET_CHART_DATA_TRANSACTION = gql`
+query Query($limit: Int!, $page: Int!, $typeTransaction: TypeTransaction!, $createdAfter: Date, $createdBefore: Date) {
+  getChartData(limit: $limit, page: $page, typeTransaction: $typeTransaction, createdAfter: $createdAfter, createdBefore: $createdBefore) {
+    amount
+    createdAt
+    user {
+      email
+      id
+      name
+      role
+    }
+  }
+}
+`;
+
 export const ADD_TRANSACTION = gql`
 mutation Mutation($concept: String!, $amount: Float!, $typeTransaction: TypeTransaction!) {
   addTransaction(concept: $concept, amount: $amount, typeTransaction: $typeTransaction) {

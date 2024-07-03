@@ -27,6 +27,7 @@ import type {
   TTransaction,
 } from "@app/utils/domain/types/transaction/Transaction";
 import type {
+  CountTransactionsParams,
   CurrentBalanceTransactionParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
@@ -68,7 +69,7 @@ export default function TransactionPage() {
     error: _countTransactionError,
     loading: countTransactionLoading,
     data: countTransaction,
-  } = useQuery<TCountTransactions, ListTransactionsParams>(COUNT_TRANSACTIONS);
+  } = useQuery<TCountTransactions, CountTransactionsParams>(COUNT_TRANSACTIONS);
 
   const {
     error: _balanceError,

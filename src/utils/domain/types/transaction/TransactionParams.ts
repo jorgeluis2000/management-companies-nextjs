@@ -17,8 +17,8 @@ export type GetChartDataParams = {
   limit: number;
   page: number;
   typeTransaction: TypeTransaction;
-  createdAfter?: Date;
-  createdBefore?: Date;
+  createdAfter?: Date | null;
+  createdBefore?: Date | null;
 };
 
 export type CountTransactionsParams = {

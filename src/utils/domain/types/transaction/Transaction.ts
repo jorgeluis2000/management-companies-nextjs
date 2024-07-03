@@ -25,6 +25,14 @@ export type TTransactionChart = {
   user: TUserTransaction;
 }
 
+export type TTransactionCSV = {
+  amount: number;
+  createdAt: Date;
+  userEmail: string;
+  userName: string;
+  userRole: Role;
+}
+
 export type TGetChartData = {
   getChartData: TTransactionChart[]
 }
