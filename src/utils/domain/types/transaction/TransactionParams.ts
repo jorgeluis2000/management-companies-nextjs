@@ -7,6 +7,20 @@ export type ListTransactionsParams = {
   user?: string;
 };
 
+export type CountChartDataParams = {
+  typeTransaction: TypeTransaction;
+  createdAfter?: Date;
+  createdBefore?: Date;
+};
+
+export type GetChartDataParams = {
+  limit: number;
+  page: number;
+  typeTransaction: TypeTransaction;
+  createdAfter?: Date;
+  createdBefore?: Date;
+};
+
 export type CountTransactionsParams = {
   typeTransaction?: TypeTransaction;
   user?: string;

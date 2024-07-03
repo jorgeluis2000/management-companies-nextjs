@@ -38,7 +38,7 @@ export default function DashboardLayout({ children, className }: IProps) {
   const t = useTranslations("Navigation");
   const router = useRouter();
   const sizeIcon = 20;
-  const { setTheme } = useTheme();
+  const { theme: themeNow, setTheme } = useTheme();
   const [sessionUser, setSessionUser] = useState<IUserSession>();
   const [profileOp, setProfileOp] = useState<SidebarProfile>({
     name: "-",
@@ -76,13 +76,13 @@ export default function DashboardLayout({ children, className }: IProps) {
     "timezone",
     "America/Los_Angeles",
   );
-  const [_language, setLanguage, _removeLanguage] = useLocalStorage(
+  const [language, setLanguage, _removeLanguage] = useLocalStorage(
     "language",
     "en",
   );
-  const [_modeTheme, setModeTheme, _removeModeTheme] = useLocalStorage(
+  const [modeTheme, setModeTheme, _removeModeTheme] = useLocalStorage(
     "modeTheme",
-    "auto",
+    "system",
   );
 
   const [sidebarItems, setSidebarItems] = useState<SidebarItems>({
@@ -104,7 +104,7 @@ export default function DashboardLayout({ children, className }: IProps) {
       },
       {
         label: t("communities"),
-        href: "/dashboard/communities",
+        href: `/${router.locale}/dashboard/communities`,
         icon: <FiUsers size={sizeIcon} />,
       },
     ],
@@ -138,7 +138,7 @@ export default function DashboardLayout({ children, className }: IProps) {
       );
       setLanguage((beforeLanguage) =>
         sessionUser?.user?.language
-          ? sessionUser.user.language
+          ? sessionUser.user.language.code
           : beforeLanguage,
       );
       setModeTheme((beforeModeTheme) =>
@@ -146,7 +146,7 @@ export default function DashboardLayout({ children, className }: IProps) {
           ? sessionUser.user.theme.toLowerCase()
           : beforeModeTheme.toLowerCase(),
       );
-      setTheme(sessionUser.user.theme?.toLocaleUpperCase() ?? "auto");
+      setTheme(sessionUser.user.theme?.toLocaleLowerCase() ?? "system");
     }
   }, [sessionUser, setTimezone, setLanguage, setModeTheme, setTheme]);
 
@@ -168,6 +168,8 @@ export default function DashboardLayout({ children, className }: IProps) {
       });
     }
   }, [sessionUser, router, t]);
+
+
 
   return (
     <>

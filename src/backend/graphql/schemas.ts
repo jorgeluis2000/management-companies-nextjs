@@ -63,6 +63,12 @@ export const typeDefs = `#graphql
         role: Role
     }
 
+    type TransactionChart {
+        amount: Float
+        createdAt: Date
+        user: UserTransaction
+    }
+
     type Query {
         users(limit: Int!, page: Int!): [User]
         countUsers: Int
@@ -71,6 +77,8 @@ export const typeDefs = `#graphql
         transactions(limit: Int!, page: Int!, typeTransaction: TypeTransaction, user: ID): [Transaction]
         countTransactions(typeTransaction: TypeTransaction, user: ID): Int
         currentBalance(user: ID): Float
+        getChartData(limit: Int!, page: Int!, typeTransaction: TypeTransaction!, createdAfter: Date, createdBefore: Date): [TransactionChart]
+        countChartData(typeTransaction: TypeTransaction, createdAfter: Date, createdBefore: Date): Int
     }
 
     type Mutation {

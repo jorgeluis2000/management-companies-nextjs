@@ -41,13 +41,13 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { FiArrowDownCircle, FiMoreHorizontal, FiUsers } from "react-icons/fi";
 import { useReadLocalStorage } from "usehooks-ts";
-import FormShowUser from "./components/FormShowUser";
-import FormUpdateUser from "./components/FormUpdateUser";
+import FormShowUser from "../../../utils/components/communities/FormShowUser";
+import FormUpdateUser from "../../../utils/components/communities/FormUpdateUser";
 
 export default function CommunityPage() {
   const limitRows = 25;
-  const admin = "border-sky-500 text-teal-700 bg-sky-200/50";
-  const normalUser = "border-teal-500 text-teal-700 bg-teal-200/50";
+  const admin = "border-sky-500 text-teal-700 bg-sky-200/50 dark:bg-sky-300";
+  const normalUser = "border-teal-500 text-teal-700 bg-teal-200/50 dark:bg-teal-300";
   const timezone = useReadLocalStorage<string>("timezone");
   const t = useTranslations("Community");
 

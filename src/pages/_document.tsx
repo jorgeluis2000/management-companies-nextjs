@@ -1,20 +1,12 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
-import { ThemeProvider } from "./components/theme-provider";
 
 export default function Document() {
   return (
     <Html suppressHydrationWarning lang="en">
-      <Head/>
+      <Head />
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Main />
-        </ThemeProvider>
+        <Main />
         <NextScript />
       </body>
     </Html>

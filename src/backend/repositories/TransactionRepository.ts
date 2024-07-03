@@ -1,13 +1,71 @@
 import type {
   AddTransactionRepositoryParams,
+  CountChartDataParams,
   CountTransactionsParams,
   CurrentBalanceTransactionParams,
+  GetChartDataParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 export default class TransactionRepository {
   constructor(private readonly prisma: PrismaClient) {}
+
+  public async countChartData(data: CountChartDataParams) {
+    try {
+      const createdAtQuery: Prisma.TransactionWhereInput["createdAt"] = {};
+      if (data.createdAfter) createdAtQuery.gte = data.createdAfter;
+      if (data.createdBefore) createdAtQuery.lte = data.createdBefore;
+      const count = await this.prisma.transaction.count({
+        where: {
+          typeTransaction: data.typeTransaction,
+          createdAt: createdAtQuery,
+        },
+        orderBy: [
+          {
+            createdAt: "asc",
+          },
+        ],
+      });
+      return count;
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  public async getChartData(data: GetChartDataParams) {
+    try {
+      const createdAtQuery: Prisma.TransactionWhereInput["createdAt"] = {};
+      if (data.createdAfter) createdAtQuery.gte = data.createdAfter;
+      if (data.createdBefore) createdAtQuery.lte = data.createdBefore;
+      const transactions = await this.prisma.transaction.findMany({
+        select: {
+          amount: true,
+          createdAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              role: true,
+            },
+          },
+        },
+        where: {
+          typeTransaction: data.typeTransaction,
+          createdAt: createdAtQuery,
+        },
+        orderBy: [
+          {
+            createdAt: "asc",
+          },
+        ],
+      });
+      return transactions;
+    } catch (error) {
+      return [];
+    }
+  }
 
   public async listTransactions(data: ListTransactionsParams) {
     try {
@@ -35,8 +93,8 @@ export default class TransactionRepository {
         },
         orderBy: [
           {
-            createdAt: 'desc'
-          }
+            createdAt: "desc",
+          },
         ],
         skip,
         take: data.limit,

@@ -23,7 +23,7 @@ async function main() {
             name: "admin test",
             userConfig: {
                 create: {
-                    theme: 'LIGHT',
+                    theme: 'AUTO',
                     language: {
                         connect: {
                             code: 'es'

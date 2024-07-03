@@ -18,6 +18,20 @@ export type TUserTransaction = {
   role: Role;
 };
 
+
+export type TTransactionChart = {
+  amount: number;
+  createdAt: Date;
+  user: TUserTransaction;
+}
+
+export type TGetChartData = {
+  getChartData: TTransactionChart[]
+}
+export type TCountChartData = {
+  countChartData: number
+}
+
 export type TListTransaction = {
   transactions: TTransaction[]
 };

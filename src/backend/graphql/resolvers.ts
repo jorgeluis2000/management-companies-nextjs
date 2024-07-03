@@ -12,8 +12,10 @@ import TransactionRepository from "../repositories/TransactionRepository";
 import TransactionUseCase from "../usecase/transaction/TransactionUseCase";
 import type {
   AddTransactionParams,
+  CountChartDataParams,
   CountTransactionsParams,
   CurrentBalanceTransactionParams,
+  GetChartDataParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
 
@@ -82,16 +84,38 @@ export const resolvers = {
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
     },
-    countUsers: async (
-      _parent: unknown,
-      _args: unknown,
-      context: Context,
-    ) => {
+    countUsers: async (_parent: unknown, _args: unknown, context: Context) => {
       if (context.session?.user.id) {
         return await userUseCase.countUsers();
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
-    }
+    },
+    getChartData: async (
+      _parent: unknown,
+      args: GetChartDataParams,
+      context: Context,
+    ) => {
+      if (context.session?.user.id && context.session.user.role === "ADMIN") {
+        return await transactionUseCase.getChartData(args);
+      }
+      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+        throw new Error(context.t("QueryError.sessionAuthorization"));
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
+    },
+    countChartData: async (
+      _parent: unknown,
+      args: CountChartDataParams,
+      context: Context,
+    ) => {
+      if (context.session?.user.id && context.session.user.role === "ADMIN") {
+        return await transactionUseCase.countChartData(args);
+      }
+      if (context.session?.user.id && context.session.user.role !== "ADMIN") {
+        throw new Error(context.t("QueryError.sessionAuthorization"));
+      }
+      throw new Error(context.t("QueryError.notAuthenticated"));
+    },
   },
   Mutation: {
     addUser: async (

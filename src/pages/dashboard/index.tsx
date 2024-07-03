@@ -77,8 +77,8 @@ export default function DashboardPage() {
 
   const { error: _countUsersError, loading: countUsersLoading, data: countUsers } = useQuery<TCurrentCountUsers>(COUNT_USER)
 
-  const expense = "border-red-500 text-red-700 bg-red-200/50";
-  const income = "border-green-500 text-green-700 bg-green-200/50";
+  const expense = "border-red-500 text-red-700 bg-red-200/50 dark:bg-red-300";
+  const income = "border-green-500 text-green-700 bg-green-200/50 dark:bg-green-300";
   useEffect(() => {
     if (transactionsError) {
       toast(transactionsError.name, {
