@@ -162,7 +162,7 @@ export default function SheetAddUser({ description, title }: IProps) {
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone-user-add" className="text-right">
-                {t("sheetAddUser.inputs.labelPhone")} <Required />
+                {t("sheetAddUser.inputs.labelPhone")}
               </Label>
               <Input
                 id="phone-user-add"

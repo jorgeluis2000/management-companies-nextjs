@@ -62,7 +62,6 @@ export default function SheetAddTransaction({ description, title }: IProps) {
       richColors: true,
       icon: <FiCheck size={20} className="text-green-600" />,
     });
-    router.reload();
   }
 
   useEffect(() => {

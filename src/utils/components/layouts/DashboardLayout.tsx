@@ -38,7 +38,7 @@ export default function DashboardLayout({ children, className }: IProps) {
   const t = useTranslations("Navigation");
   const router = useRouter();
   const sizeIcon = 20;
-  const { theme: themeNow, setTheme } = useTheme();
+  const { theme: _themeNow, setTheme } = useTheme();
   const [sessionUser, setSessionUser] = useState<IUserSession>();
   const [profileOp, setProfileOp] = useState<SidebarProfile>({
     name: "-",
@@ -146,7 +146,8 @@ export default function DashboardLayout({ children, className }: IProps) {
           ? sessionUser.user.theme.toLowerCase()
           : beforeModeTheme.toLowerCase(),
       );
-      setTheme(sessionUser.user.theme?.toLocaleLowerCase() ?? "system");
+      const themePrev = sessionUser.user.theme?.toLocaleLowerCase() === 'auto' ? "system" : sessionUser.user.theme?.toLocaleLowerCase()
+      setTheme(themePrev ?? "system");
     }
   }, [sessionUser, setTimezone, setLanguage, setModeTheme, setTheme]);
 
