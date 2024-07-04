@@ -79,22 +79,22 @@ export default function DashboardPage() {
 
   const expense = "border-red-500 text-red-700 bg-red-200/50 dark:bg-red-300";
   const income = "border-green-500 text-green-700 bg-green-200/50 dark:bg-green-300";
-  useEffect(() => {
-    if (transactionsError) {
-      toast(transactionsError.name, {
-        richColors: true,
-        icon: <FiAlertOctagon size={20} className="text-red-600" />,
-        description: transactionsError.message,
-      });
-    }
-    if (balanceError) {
-      toast(balanceError.name, {
-        richColors: true,
-        icon: <FiAlertOctagon size={20} className="text-red-600" />,
-        description: balanceError.message,
-      });
-    }
-  }, [transactionsError, balanceError]);
+  // useEffect(() => {
+  //   if (transactionsError) {
+  //     toast(transactionsError.name, {
+  //       richColors: true,
+  //       icon: <FiAlertOctagon size={20} className="text-red-600" />,
+  //       description: transactionsError.message,
+  //     });
+  //   }
+  //   if (balanceError) {
+  //     toast(balanceError.name, {
+  //       richColors: true,
+  //       icon: <FiAlertOctagon size={20} className="text-red-600" />,
+  //       description: balanceError.message,
+  //     });
+  //   }
+  // }, [transactionsError, balanceError]);
   return (
     <DashboardLayout className="space-y-5">
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">

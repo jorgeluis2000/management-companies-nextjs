@@ -38,6 +38,17 @@ export type UpdateUserParams = {
   theme?: UserTheme;
 };
 
+export type UpdateUserProfileParams = {
+  email?: string;
+  name: string;
+  role: Role;
+  image?: string;
+  phone?: string;
+  language?: string;
+  timeZone?: string;
+  theme?: UserTheme;
+};
+
 export type DeleteUserParams = {
   id: string;
 };

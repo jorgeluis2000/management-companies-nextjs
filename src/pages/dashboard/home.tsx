@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER_BY_EMAIL } from "@app/utils/queries/UserQuery";
 import SkeletonTextPlaceholder from "@app/utils/components/SkeletonTextPlaceholder";
-import type {
-  TGetUserByEmail,
-  TUser,
-} from "@app/utils/domain/types/user/User";
+import type { TGetUserByEmail, TUser } from "@app/utils/domain/types/user/User";
 import type { GetUserByEmailParams } from "@app/utils/domain/types/user/UserParams";
 import type { GetStaticPropsContext } from "next";
 import { signOut, useSession } from "next-auth/react";
@@ -25,16 +27,20 @@ export default function HomePage() {
     if (status === "unauthenticated") {
       Router.replace(`/${Router.locale}/auth/signin`);
     }
+  }, [status]);
+
+  useEffect(() => {
     if (result.data) {
       setUserByEmail(result.data.userByEmail);
     }
-  }, [status, result]);
+  }, [result]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (status !== "loading") {
       geUserByEmail({ variables: { email: data?.user?.email ?? "" } });
     }
-  }, [geUserByEmail, data, status]);
+  }, [status]);
   if (status === "authenticated") {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-24">

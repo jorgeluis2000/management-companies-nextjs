@@ -47,10 +47,10 @@ export default function SheetAddTransaction({ description, title }: IProps) {
     AddTransactionParams
   >(ADD_TRANSACTION);
 
-  function eventHandlerAddTransaction(e: FormEvent<HTMLFormElement>) {
+  async function eventHandlerAddTransaction(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { concept, type, amount } = e.target as unknown as TTransactionAdd;
-    addTransaction({
+    await addTransaction({
       variables: {
         amount: Number(amount.value),
         concept: concept.value,

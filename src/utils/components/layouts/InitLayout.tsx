@@ -35,20 +35,23 @@ export default function InitLayout({ children }: IProps) {
     Router.replace(`/${Router.locale}/dashboard`);
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setLanguage(navigator.language);
-  }, [setLanguage]);
+  }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  }, [setTimezone]);
+  }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setModeTheme("system");
     setTheme(
       modeTheme.toLowerCase() === "auto" ? "system" : modeTheme.toLowerCase(),
     );
-  }, [setModeTheme, setTheme, modeTheme]);
+  }, [modeTheme]);
 
   return (
     <>

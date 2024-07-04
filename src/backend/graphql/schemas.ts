@@ -85,6 +85,7 @@ export const typeDefs = `#graphql
         addUser(email: String!, name: String!, password: String!, image: String, phone: String, role: Role!, language: String!, timeZone: String!, theme: UserTheme!): User
         deleteUser(id: ID!): Boolean!
         updateUser(id: ID!, email: String, name: String, password: String, phone: String, image: String, role: Role, language: String, timeZone: String, theme: UserTheme): User
+        updateProfile(email: String, name: String, password: String, phone: String, image: String, role: Role, language: String, timeZone: String, theme: UserTheme): User
         addTransaction(concept: String!, amount: Float!, typeTransaction: TypeTransaction!): Transaction
     }
 `;

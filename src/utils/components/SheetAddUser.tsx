@@ -66,12 +66,12 @@ export default function SheetAddUser({ description, title }: IProps) {
     AddUserParams
   >(ADD_USER);
 
-  function eventHandlerAdd(e: FormEvent<HTMLFormElement>) {
+  async function eventHandlerAdd(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { name, role, email, phone, theme, password, passwordConfirm } =
       e.target as unknown as TUserAdd;
     if (password.value === passwordConfirm.value) {
-      addUser({
+      await addUser({
         variables: {
           name: name.value,
           email: email.value,

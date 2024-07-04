@@ -26,7 +26,9 @@ type CredentialsProviderProps = {
   email: string;
   password: string;
 };
-
+const userRepository = new UserRepository(prisma);
+const userUseCase = new UserUseCase(userRepository);
+const userValidator = new UserValidator();
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -36,39 +38,46 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.AUTH0_CLIENT_ID ?? "",
       clientSecret: process.env.AUTH0_CLIENT_SECRET ?? "",
       issuer: process.env.AUTH0_ISSUER_BASE_URL,
-      async profile(profile, tokens) {
+      async profile(profile, _tokens) {
         const credential: User = {
           id: profile.aud,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
         };
+
+        let userCreated: TUser | null = null;
         const userRepository = new UserRepository(prisma);
         const userUseCase = new UserUseCase(userRepository);
-        let userCreated: TUser | null = null
-        const user = await userUseCase.getUserByEmail(profile.email);
-        
-        if (!user) {
-          userCreated = await userUseCase.addUser({
-            email: profile.email,
-            language: "es",
-            name: profile.name,
-            password: "",
-            role: "ADMIN",
-            theme: "AUTO",
-            timeZone: "America/Bogota",
-            image: profile.picture,
-            phone: ""
-          })
-          if (userCreated) {
-            credential.id = userCreated.id
+        try {
+          const user = await userUseCase.getUserByEmail(profile.email);
+          if (!user) {
+            userCreated = await userUseCase.addUser({
+              email: profile.email,
+              language: "es",
+              name: profile.name,
+              password: "",
+              role: "ADMIN",
+              theme: "AUTO",
+              timeZone: "America/Bogota",
+              image: profile.picture,
+            });
+
+            if (userCreated) {
+              credential.id = userCreated.id;
+            } else {
+              throw new InvalidCredentialError(
+                "Lo sentimos tuvimos problemas con la session vuelve a intentarlo más tarde.",
+              );
+            }
           } else {
-            throw new InvalidCredentialError("Lo sentimos tuvimos problemas con la session vuelve a intentarlo más tarde.")
+            credential.id = user.id;
           }
-        } else {
-          credential.id = user.id
+        } catch (error) {
+          console.error("Error in profile function:", error);
+          throw new UnknownError("Error fetching or creating user");
         }
-        return credential
+        return credential;
       },
     }),
     CredentialsProvider({
@@ -91,9 +100,6 @@ export const authOptions: NextAuthOptions = {
           messages,
         });
         try {
-          const userRepository = new UserRepository(prisma);
-          const userUseCase = new UserUseCase(userRepository);
-          const userValidator = new UserValidator();
           const validationAuth = userValidator.validationAuth({
             email,
             password,
@@ -129,13 +135,16 @@ export const authOptions: NextAuthOptions = {
     error: "/",
   },
   callbacks: {
-    async jwt({ token }) {
+    async jwt({ token, trigger, session }) {
       const userRepository = new UserRepository(prisma);
       const userUseCase = new UserUseCase(userRepository);
       const user = await userUseCase.session({ email: token.email ?? "" });
+      if (trigger === "update") {
+        return {...token, ...session.user}
+      }
       if (user) {
         token.role = user.role;
-        token.role = user.phone;
+        token.phone = user.phone;
         token.picture = user.image;
         token.language = user.userConfig.language;
         token.theme = user.userConfig.theme;

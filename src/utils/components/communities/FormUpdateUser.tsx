@@ -33,12 +33,12 @@ export default function FormUpdateUser({ user }: IProps) {
   const router = useRouter();
   const [updateUser, { data: userUpdated, error: userUpdatedError }] =
     useMutation<TUpdateUser, UpdateUserParams>(UPDATE_USER);
-  function eventSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function eventSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { id, name, role } = e.target as unknown as TUserUpdate;
 
-    updateUser({
+    await updateUser({
       variables: {
         id: id.value,
         name: name.value,
@@ -62,8 +62,9 @@ export default function FormUpdateUser({ user }: IProps) {
       });
       router.reload();
     }
-  }, [userUpdated, t, router]);
+  }, [userUpdated, router, t]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (userUpdatedError) {
       toast(t("toasts.errorUpdate.title"), {
@@ -73,7 +74,7 @@ export default function FormUpdateUser({ user }: IProps) {
       });
       router.reload();
     }
-  }, [userUpdatedError, t, router]);
+  }, [userUpdatedError]);
 
   return (
     <form onSubmit={eventSubmit} className="space-y-5">

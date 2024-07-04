@@ -41,6 +41,10 @@ export type TUpdateUser = {
   updateUser: TUser
 }
 
+export type TUpdateUserProfile = {
+  updateProfile: TUser
+}
+
 export type TCurrentCountUsers = {
   countUsers: number
 };

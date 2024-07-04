@@ -1,6 +1,6 @@
 import type React from "react";
 import SidebarDesktop from "../sidebar/SidebarDesktop";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Router, { useRouter } from "next/router";
 import {
@@ -72,7 +72,7 @@ export default function DashboardLayout({ children, className }: IProps) {
     ),
   });
 
-  const [_timezone, setTimezone, _removeTimezone] = useLocalStorage(
+  const [timezone, setTimezone, _removeTimezone] = useLocalStorage(
     "timezone",
     "America/Los_Angeles",
   );
@@ -114,44 +114,35 @@ export default function DashboardLayout({ children, className }: IProps) {
     initializeWithValue: false,
   });
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
+  const handleUnauthenticated = useCallback(() => {
     if (status === "unauthenticated") {
       router.replace(`/${router.locale}/auth/signin`);
     }
+  }, [status, router]);
+
+  const handleAuthenticated = useCallback(() => {
     if (status === "authenticated") {
-      setSessionUser(data as IUserSession);
+      const sessionCurrent = data as IUserSession
+      setSessionUser(sessionCurrent);
       setProfileOp((before) => ({
         ...before,
-        name: sessionUser?.user.name ?? " - ",
-        href: sessionUser?.user.image ?? before.href,
+        name: sessionCurrent.user.name ?? " - ",
+        href: sessionCurrent.user.image ?? before.href,
       }));
     }
-  }, [status, setSessionUser, setProfileOp, sessionUser]);
+  }, [status, data]);
 
-  useEffect(() => {
+  const updatePreferences = useCallback(() => {
     if (sessionUser) {
-      setTimezone((beforeTimezone) =>
-        sessionUser?.user?.timeZone
-          ? sessionUser.user.timeZone
-          : beforeTimezone,
-      );
-      setLanguage((beforeLanguage) =>
-        sessionUser?.user?.language
-          ? sessionUser.user.language.code
-          : beforeLanguage,
-      );
-      setModeTheme((beforeModeTheme) =>
-        sessionUser?.user?.theme
-          ? sessionUser.user.theme.toLowerCase()
-          : beforeModeTheme.toLowerCase(),
-      );
-      const themePrev = sessionUser.user.theme?.toLocaleLowerCase() === 'auto' ? "system" : sessionUser.user.theme?.toLocaleLowerCase()
-      setTheme(themePrev ?? "system");
+      setTimezone(sessionUser.user.timeZone ?? timezone);
+      setLanguage(sessionUser.user.language?.code ?? language);
+      const theme = sessionUser.user.theme?.toLowerCase();
+      setModeTheme(theme ?? modeTheme.toLowerCase());
+      setTheme(theme === "auto" ? "system" : theme ?? "system");
     }
-  }, [sessionUser, setTimezone, setLanguage, setModeTheme, setTheme]);
+  }, [sessionUser, language, modeTheme, timezone, setTimezone, setLanguage, setModeTheme, setTheme]);
 
-  useEffect(() => {
+  const updateSidebarItems = useCallback(() => {
     if (sessionUser && sessionUser.user.role !== "ADMIN") {
       setSidebarItems({
         links: [
@@ -170,7 +161,10 @@ export default function DashboardLayout({ children, className }: IProps) {
     }
   }, [sessionUser, router, t]);
 
-
+  useEffect(handleUnauthenticated, [handleUnauthenticated]);
+  useEffect(handleAuthenticated, [handleAuthenticated]);
+  useEffect(updatePreferences, [updatePreferences]);
+  useEffect(updateSidebarItems, [updateSidebarItems]);
 
   return (
     <>

@@ -21,7 +21,7 @@ model User {
   phone        String?       @default("")
   password     String
   image        String?       @default("")
-  idUserConfig String
+  idUserConfig String        @unique
   userConfig   UserConfig    @relation(fields: [idUserConfig], references: [id])
   role         Role          @default(USER)
   createdAt    DateTime      @default(now())
@@ -35,7 +35,7 @@ model UserConfig {
   language     Language  @relation(fields: [codeLanguage], references: [code])
   codeTimezone String
   timeZone     TimeZone  @relation(fields: [codeTimezone], references: [zone])
-  users        User[]
+  user         User?
   theme        UserTheme @default(LIGHT)
 }
 

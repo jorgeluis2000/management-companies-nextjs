@@ -13,6 +13,17 @@ export type TUserAdd = {
   passwordConfirm: ValueItem<string>;
 };
 
+export type TUserEditProfile = {
+  name: ValueItem<string>;
+  role?: ValueItem<Role>;
+  email: ValueItem<string>;
+  language?: ValueItem<string>;
+  phone: ValueItem<string>;
+  timeZone?: ValueItem<string>;
+  theme?: ValueItem<UserTheme>;
+  image?: ValueItem<string>;
+};
+
 
 export type TUserUpdate = {
   id: ValueItem<string>;

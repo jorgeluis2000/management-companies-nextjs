@@ -239,6 +239,57 @@
       }
     }
   },
+  "Profile": {
+    "title": "Perfil de",
+    "description": "Modifica y personaliza tu perfil sin problemas.",
+    "btnCancel": "Cancelar",
+    "btnSubmit": "Guardar cambios",
+    "cardEdit": {
+      "inputs": {
+        "labelName": "Nombre",
+        "placeholderName": "Federico Ramirez...",
+        "labelEmail": "Email",
+        "placeholderEmail": "Tu email",
+        "labelPhone": "Celular",
+        "placeholderPhone": "Tu número de celular",
+        "labelImage": "Imagen",
+        "placeholderImage": "URL de la imagen",
+        "labelRole": "Rol",
+        "placeholderRole": "Selecciona un rol",
+        "optionsRole": {
+          "defaultValue": "Rol del usuario",
+          "admin": "Administrador",
+          "user": "Empleado"
+        },
+        "labelTheme": "Tema",
+        "placeholderTheme": "Selecciona un tema",
+        "optionsTheme": {
+          "defaultValue": "Tema de la vista del usuario",
+          "dark": "Oscuro",
+          "light": "Claro",
+          "auto": "Automático/Sistema"
+        },
+        "labelTimezone": "Zona horaria",
+        "placeholderTimezone": "Selecciona un zona horaria",
+        "optionsTimezone": {
+          "defaultValue": "Selecciona un zona horaria...",
+          "notFound": "No se encuentran zonas horarias relacionados.",
+          "search": "Buscar zona horaria..."
+        },
+        "labelLanguage": "Lenguaje",
+        "placeholderLanguage": "Selecciona un lenguaje",
+        "optionsLanguage": {
+          "defaultValue": "Selecciona un lenguaje...",
+          "notFound": "No se encuentran lenguajes relacionados.",
+          "search": "Buscar lenguaje..."
+        },
+        "labelPassword": "Contraseña",
+        "placeholderPassword": "Tu contraseña",
+        "labelPasswordConfirm": "Contraseña de confirmación",
+        "placeholderPasswordConfirm": "Confirma tu contraseña"
+      }
+    }
+  },
   "Navigation": {
     "home": "Home",
     "transactions": "Transactions",

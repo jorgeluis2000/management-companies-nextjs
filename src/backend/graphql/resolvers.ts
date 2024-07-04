@@ -4,6 +4,7 @@ import type {
   GetUserByEmailParams,
   ListUserParams,
   UpdateUserParams,
+  UpdateUserProfileParams,
 } from "@app/utils/domain/types/user/UserParams";
 import { prisma, type Context } from "../config/database/config";
 import UserRepository from "../repositories/UserRepository";
@@ -142,7 +143,9 @@ export const resolvers = {
         if (context.session?.user.id && context.session.user.role !== "ADMIN") {
           throw new SessionError(context.t("QueryError.sessionAuthorization"));
         }
-        throw new NotAuthenticatedError(context.t("QueryError.notAuthenticated"));
+        throw new NotAuthenticatedError(
+          context.t("QueryError.notAuthenticated"),
+        );
       } catch (error) {
         const catchError: { name: string; message: string } = error as {
           name: string;
@@ -161,7 +164,6 @@ export const resolvers = {
 
         throw new UnknownError(context.t("QueryError.invalidCredentials"));
       }
-      
     },
     updateUser: async (
       _parent: unknown,
@@ -203,6 +205,49 @@ export const resolvers = {
         });
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
+    },
+    updateProfile: async (
+      _parent: unknown,
+      args: UpdateUserProfileParams,
+      context: Context,
+    ) => {
+      try {
+        if (context.session?.user.id) {
+          const validator = userValidator.validationUpdateProfile(args)
+          if (validator.length > 0) {
+            throw new InvalidCredentialError(validator[0].message);
+          }
+          return await userUseCase.updateUser({
+            id: context.session.user.id,
+            name: args.name,
+            role: args.role,
+            email: args.email,
+            image: args.image,
+            language: args.language,
+            phone: args.phone,
+            theme: args.theme,
+            timeZone: args.timeZone,
+          });
+        }
+        throw new Error(context.t("QueryError.notAuthenticated"));
+      } catch (error) {
+        const catchError: { name: string; message: string } = error as {
+          name: string;
+          message: string;
+        };
+        if (catchError.name === "InvalidCredentialError") {
+          throw new InvalidCredentialError(catchError.message);
+        }
+        if (catchError.name === "NotAuthenticatedError") {
+          throw new NotAuthenticatedError(catchError.message);
+        }
+
+        if (catchError.name === "NotAuthenticatedError") {
+          throw new SessionError(catchError.message);
+        }
+
+        throw new UnknownError(context.t("QueryError.invalidCredentials"));
+      }
     },
   },
 };
