@@ -77,7 +77,6 @@ export default function CommunityPage() {
   }
 
   useEffect(() => {
-    console.log("🚀 ~ useEffect ~ listUser:", listUser)
     if (listUser) {
       setUsers((prev) => [...prev, ...listUser.users]);
     }

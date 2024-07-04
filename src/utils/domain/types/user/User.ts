@@ -33,6 +33,10 @@ export type TListUser = {
   users: TUser[];
 }
 
+export type TMeUser = {
+  user: TUser;
+}
+
 export type TAddUser = {
   addUser: TUser
 }

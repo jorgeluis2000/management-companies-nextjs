@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
         const userRepository = new UserRepository(prisma);
         const userUseCase = new UserUseCase(userRepository);
         try {
-          const user = await userUseCase.getUserByEmail(profile.email);
+          const user = await userUseCase.getUserByEmail({ email: profile.email });
           if (!user) {
             userCreated = await userUseCase.addUser({
               email: profile.email,
@@ -140,7 +140,7 @@ export const authOptions: NextAuthOptions = {
       const userUseCase = new UserUseCase(userRepository);
       const user = await userUseCase.session({ email: token.email ?? "" });
       if (trigger === "update") {
-        return {...token, ...session.user}
+        return { ...token, ...session.user };
       }
       if (user) {
         token.role = user.role;
