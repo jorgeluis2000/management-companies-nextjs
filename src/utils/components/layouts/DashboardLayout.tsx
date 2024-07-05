@@ -114,25 +114,24 @@ export default function DashboardLayout({ children, className }: IProps) {
     initializeWithValue: false,
   });
 
-  function updateLocalStorages(sessionCurrent: IUserSession) {
-    setTimezone(sessionCurrent.user.timeZone ?? INIT_TIMEZONE);
-    setLanguage(sessionCurrent.user.language ?? INIT_LANGUAGE);
-    const theme = sessionCurrent.user.theme?.toLowerCase();
-    setTheme(theme === "auto" ? INIT_THEME : theme ?? INIT_THEME);
-    setProfileOp((before) => ({
-      ...before,
-      name: sessionCurrent.user.name ?? " - ",
-      href: sessionCurrent.user.image ?? before.href,
-    }));
-  }
-
   useEffect(() => {
+    const functionExternal = (sessionCurrent: IUserSession) => {
+      setTimezone(sessionCurrent.user.timeZone ?? INIT_TIMEZONE);
+      setLanguage(sessionCurrent.user.language ?? INIT_LANGUAGE);
+      const theme = sessionCurrent.user.theme?.toLowerCase();
+      setTheme(theme === "auto" ? INIT_THEME : theme ?? INIT_THEME);
+      setProfileOp((before) => ({
+        ...before,
+        name: sessionCurrent.user.name ?? " - ",
+        href: sessionCurrent.user.image ?? before.href,
+      }));
+    };
     if (status === "unauthenticated") {
       router.replace(`/${router.locale}/auth/signin`);
     }
     if (data) {
       const sessionCurrent = data as IUserSession;
-      updateLocalStorages(sessionCurrent);
+      functionExternal(sessionCurrent);
       if (sessionCurrent.user.role !== "ADMIN") {
         setSidebarItems({
           links: [
@@ -150,7 +149,7 @@ export default function DashboardLayout({ children, className }: IProps) {
         });
       }
     }
-  }, [data, status, router]);
+  }, [data, status, router, t, setLanguage, setTimezone, setTheme]);
 
   return (
     <>

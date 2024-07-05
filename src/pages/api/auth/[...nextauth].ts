@@ -74,7 +74,6 @@ export const authOptions: NextAuthOptions = {
             credential.id = user.id;
           }
         } catch (error) {
-          console.error("Error in profile function:", error);
           throw new UnknownError("Error fetching or creating user");
         }
         return credential;
@@ -172,13 +171,10 @@ export const authOptions: NextAuthOptions = {
   },
   logger: {
     error(code, metadata) {
-      console.error(code, metadata);
     },
     warn(code) {
-      console.warn(code);
     },
     debug(code, metadata) {
-      console.debug(code, metadata);
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

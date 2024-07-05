@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import DialogUpdate from "@app/utils/components/DialogUpdate";
 import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import SheetAddUser from "@app/utils/components/SheetAddUser";
