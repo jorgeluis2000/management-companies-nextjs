@@ -1,7 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLazyQuery, useQuery } from "@apollo/client";
+import DownloadCSV from "@app/utils/components/DownloadCVS";
+import Required from "@app/utils/components/Required";
 import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
+import TransactionByDateChart from "@app/utils/components/reports/TransactionByDateChart";
 import type {
   TCountTransactions,
   TCurrentBalanceTransaction,
@@ -13,35 +26,22 @@ import type {
   CurrentBalanceTransactionParams,
   GetChartDataParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
-import React from "react";
 import {
   COUNT_TRANSACTIONS,
   CURRENT_BALANCE_TRANSACTION,
   GET_CHART_DATA_TRANSACTION,
 } from "@app/utils/queries/TransactionQuery";
+import { date, format } from "@formkit/tempo";
+import type { TypeTransaction } from "@prisma/client";
+import { subDays } from "date-fns";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
-import { FiActivity, FiDollarSign } from "react-icons/fi";
-import TransactionByDateChart from "@app/utils/components/reports/TransactionByDateChart";
+import React from "react";
 import { useEffect, useState } from "react";
-import type { TypeTransaction } from "@prisma/client";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Required from "@app/utils/components/Required";
-import { subDays } from "date-fns";
-import { date, format } from "@formkit/tempo";
-import DownloadCSV from "@app/utils/components/DownloadCVS";
+import { FiActivity, FiDollarSign } from "react-icons/fi";
 import { PiFileCsvFill } from "react-icons/pi";
 
-export default function ProfilePage() {
+export default function ReportsPage() {
   const t = useTranslations("Report");
   const limitRows = 1000;
 

@@ -14,7 +14,7 @@ import { useReadLocalStorage } from "usehooks-ts";
 
 interface IProps {
   data: TTransactionChart[];
-  nameLine: string
+  nameLine: string;
 }
 
 export default function TransactionByDateChart({ data, nameLine }: IProps) {

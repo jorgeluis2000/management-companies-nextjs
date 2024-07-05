@@ -41,7 +41,9 @@ export default function DialogUpdate({
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="w-full" variant="ghost">{nameButton}</Button>
+          <Button className="w-full" variant="ghost">
+            {nameButton}
+          </Button>
         </DialogTrigger>
         <DialogContent className="">
           <DialogHeader>
@@ -57,7 +59,9 @@ export default function DialogUpdate({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button className="w-full" variant="ghost">{nameButton}</Button>
+        <Button className="w-full" variant="ghost">
+          {nameButton}
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">

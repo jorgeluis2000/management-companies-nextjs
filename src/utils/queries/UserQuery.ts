@@ -113,7 +113,6 @@ mutation Mutation($email: String!, $name: String!, $password: String!, $role: Ro
 }
 `;
 
-
 export const UPDATE_USER_PROFILE = gql`
 mutation Mutation($email: String, $name: String, $phone: String, $image: String, $timeZone: String, $language: String, $role: Role, $theme: UserTheme) {
   updateProfile(email: $email, name: $name, phone: $phone, image: $image, timeZone: $timeZone, language: $language, role: $role, theme: $theme) {
@@ -139,7 +138,7 @@ mutation Mutation($email: String, $name: String, $phone: String, $image: String,
     }
   }
 }
-`
+`;
 
 export const UPDATE_USER = gql`
 mutation UpdateUser($id: ID!, $role: Role, $name: String) {
@@ -166,4 +165,4 @@ mutation UpdateUser($id: ID!, $role: Role, $name: String) {
     updatedAt
   }
 }
-`
+`;

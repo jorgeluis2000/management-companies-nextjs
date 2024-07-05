@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table } from "@/components/ui/table";
-import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
-import type { GetStaticPropsContext } from "next";
-import CardAmount from "@app/utils/components/home/CardAmount";
-import CardUsers from "@app/utils/components/home/CardUsers";
-import CardCountTransaction from "@app/utils/components/home/CardCountTransaction";
-import HeaderTableTransaction from "@app/utils/components/home/HeaderTableTransaction";
-import CardHeaderTransition from "@app/utils/components/home/CardHeaderTransaction";
-import BodyTableTransaction from "@app/utils/components/home/BodyTableTransaction";
 import { useLazyQuery } from "@apollo/client";
-import {
-  COUNT_TRANSACTIONS,
-  CURRENT_BALANCE_TRANSACTION,
-  GET_TRANSACTIONS,
-} from "@app/utils/queries/TransactionQuery";
+import BodyTableTransaction from "@app/utils/components/home/BodyTableTransaction";
+import CardAmount from "@app/utils/components/home/CardAmount";
+import CardCountTransaction from "@app/utils/components/home/CardCountTransaction";
+import CardHeaderTransition from "@app/utils/components/home/CardHeaderTransaction";
+import CardUsers from "@app/utils/components/home/CardUsers";
+import HeaderTableTransaction from "@app/utils/components/home/HeaderTableTransaction";
+import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import type {
   TCountTransactions,
   TCurrentBalanceTransaction,
@@ -25,7 +18,14 @@ import type {
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
 import type { TCurrentCountUsers } from "@app/utils/domain/types/user/User";
+import {
+  COUNT_TRANSACTIONS,
+  CURRENT_BALANCE_TRANSACTION,
+  GET_TRANSACTIONS,
+} from "@app/utils/queries/TransactionQuery";
 import { COUNT_USER } from "@app/utils/queries/UserQuery";
+import type { GetStaticPropsContext } from "next";
+import React, { useEffect } from "react";
 
 export default function DashboardPage() {
   const [loadBalance, { loading: balanceLoading, data: balance }] =

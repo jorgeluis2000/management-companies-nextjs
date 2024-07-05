@@ -2,6 +2,7 @@ import { prisma } from "@app/backend/config/database/config";
 import UserRepository from "@app/backend/repositories/UserRepository";
 import UserUseCase from "@app/backend/usecase/user/UserUseCase";
 import UserValidator from "@app/backend/validators/UserValidator";
+import type { TUser } from "@app/utils/domain/types/user/User";
 import type {
   IUserSession,
   IUserSessionToken,
@@ -17,10 +18,9 @@ import {
 } from "@app/utils/services/HandlerServerService";
 import type { NextApiRequest } from "next";
 import NextAuth, { type User, type NextAuthOptions } from "next-auth";
+import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createTranslator } from "next-intl";
-import Auth0Provider from "next-auth/providers/auth0";
-import type { TUser } from "@app/utils/domain/types/user/User";
 
 type CredentialsProviderProps = {
   email: string;
@@ -50,7 +50,9 @@ export const authOptions: NextAuthOptions = {
         const userRepository = new UserRepository(prisma);
         const userUseCase = new UserUseCase(userRepository);
         try {
-          const user = await userUseCase.getUserByEmail({ email: profile.email });
+          const user = await userUseCase.getUserByEmail({
+            email: profile.email,
+          });
           if (!user) {
             userCreated = await userUseCase.addUser({
               email: profile.email,
@@ -183,10 +185,8 @@ export const authOptions: NextAuthOptions = {
     },
     warn(code) {
       console.error(code);
-
     },
-    debug(code, metadata) {
-    },
+    debug(code, metadata) {},
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

@@ -26,29 +26,29 @@ export type TUserConfig = {
 };
 
 export type TGetUserByEmail = {
-  userByEmail: TUser
+  userByEmail: TUser;
 };
 
 export type TListUser = {
   users: TUser[];
-}
+};
 
 export type TMeUser = {
   user: TUser;
-}
+};
 
 export type TAddUser = {
-  addUser: TUser
-}
+  addUser: TUser;
+};
 
 export type TUpdateUser = {
-  updateUser: TUser
-}
+  updateUser: TUser;
+};
 
 export type TUpdateUserProfile = {
-  updateProfile: TUser
-}
+  updateProfile: TUser;
+};
 
 export type TCurrentCountUsers = {
-  countUsers: number
+  countUsers: number;
 };

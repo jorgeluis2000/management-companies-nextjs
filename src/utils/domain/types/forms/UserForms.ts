@@ -24,12 +24,11 @@ export type TUserEditProfile = {
   image?: ValueItem<string>;
 };
 
-
 export type TUserUpdate = {
   id: ValueItem<string>;
   name: ValueItem<string>;
   role: ValueItem<Role>;
-}
+};
 
 type ValueItem<T> = {
   value: T;

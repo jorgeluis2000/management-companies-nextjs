@@ -49,7 +49,7 @@ export default class UserUseCase {
   public async addUser(data: AddUserParams) {
     try {
       const user: TUser | null = await this.userRepository.addUser(data);
-      return user
+      return user;
     } catch (error) {
       throw new InvalidCredentialError("Invalid credentials");
     }

@@ -1,37 +1,37 @@
-import SidebarDesktop from "../sidebar/SidebarDesktop";
-import type React from "react";
-import { useCallback, useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
-import Router, { useRouter } from "next/router";
-import {
-  FiHome,
-  FiBarChart,
-  FiUsers,
-  FiDollarSign,
-  FiUser,
-  FiLogOut,
-  FiMeh,
-} from "react-icons/fi";
-import type {
-  SidebarItems,
-  SidebarProfile,
-} from "@app/utils/domain/interfaces/Sidebar";
-import SidebarButton from "../sidebar/SidebarButton";
-import { useLocalStorage, useMediaQuery } from "usehooks-ts";
-import Link from "next/link";
-import type { IUserSession } from "@app/utils/domain/types/user/UserSession";
-import SidebarMobile from "../sidebar/SidebarMobile";
-import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
-import { toast } from "sonner";
-import type { GetStaticPropsContext } from "next";
-import Footer from "../Footer";
-import FooterItem from "../FooterItem";
 import {
   INIT_LANGUAGE,
   INIT_THEME,
   INIT_TIMEZONE,
 } from "@app/utils/constants/InitData.constants";
+import type {
+  SidebarItems,
+  SidebarProfile,
+} from "@app/utils/domain/interfaces/Sidebar";
+import type { IUserSession } from "@app/utils/domain/types/user/UserSession";
+import type { GetStaticPropsContext } from "next";
+import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import Router, { useRouter } from "next/router";
+import type React from "react";
+import { useCallback, useEffect, useState } from "react";
+import {
+  FiBarChart,
+  FiDollarSign,
+  FiHome,
+  FiLogOut,
+  FiMeh,
+  FiUser,
+  FiUsers,
+} from "react-icons/fi";
+import { toast } from "sonner";
+import { useLocalStorage, useMediaQuery } from "usehooks-ts";
+import Footer from "../Footer";
+import FooterItem from "../FooterItem";
+import SidebarButton from "../sidebar/SidebarButton";
+import SidebarDesktop from "../sidebar/SidebarDesktop";
+import SidebarMobile from "../sidebar/SidebarMobile";
 
 interface IProps {
   children?: React.ReactNode;

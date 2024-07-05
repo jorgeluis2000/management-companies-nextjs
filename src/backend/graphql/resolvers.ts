@@ -1,17 +1,4 @@
 import type {
-  AddUserParams,
-  DeleteUserParams,
-  GetUserByEmailParams,
-  ListUserParams,
-  UpdateUserParams,
-  UpdateUserProfileParams,
-} from "@app/utils/domain/types/user/UserParams";
-import { prisma, type Context } from "../config/database/config";
-import UserRepository from "../repositories/UserRepository";
-import UserUseCase from "../usecase/user/UserUseCase";
-import TransactionRepository from "../repositories/TransactionRepository";
-import TransactionUseCase from "../usecase/transaction/TransactionUseCase";
-import type {
   AddTransactionParams,
   CountChartDataParams,
   CountTransactionsParams,
@@ -19,12 +6,25 @@ import type {
   GetChartDataParams,
   ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
+import type {
+  AddUserParams,
+  DeleteUserParams,
+  GetUserByEmailParams,
+  ListUserParams,
+  UpdateUserParams,
+  UpdateUserProfileParams,
+} from "@app/utils/domain/types/user/UserParams";
 import {
   InvalidCredentialError,
   NotAuthenticatedError,
   SessionError,
   UnknownError,
 } from "@app/utils/errors/ExceptionFactory";
+import { type Context, prisma } from "../config/database/config";
+import TransactionRepository from "../repositories/TransactionRepository";
+import UserRepository from "../repositories/UserRepository";
+import TransactionUseCase from "../usecase/transaction/TransactionUseCase";
+import UserUseCase from "../usecase/user/UserUseCase";
 import UserValidator from "../validators/UserValidator";
 
 const userRepository = new UserRepository(prisma);

@@ -18,12 +18,11 @@ export type TUserTransaction = {
   role: Role;
 };
 
-
 export type TTransactionChart = {
   amount: number;
   createdAt: Date;
   user: TUserTransaction;
-}
+};
 
 export type TTransactionCSV = {
   amount: number;
@@ -31,27 +30,27 @@ export type TTransactionCSV = {
   userEmail: string;
   userName: string;
   userRole: Role;
-}
+};
 
 export type TGetChartData = {
-  getChartData: TTransactionChart[]
-}
+  getChartData: TTransactionChart[];
+};
 export type TCountChartData = {
-  countChartData: number
-}
+  countChartData: number;
+};
 
 export type TListTransaction = {
-  transactions: TTransaction[]
+  transactions: TTransaction[];
 };
 
 export type TCurrentBalanceTransaction = {
-  currentBalance: number
+  currentBalance: number;
 };
 
 export type TCountTransactions = {
-  countTransactions: number
-}
+  countTransactions: number;
+};
 
 export type TAddTransaction = {
-  addTransaction: TTransaction
-}
+  addTransaction: TTransaction;
+};

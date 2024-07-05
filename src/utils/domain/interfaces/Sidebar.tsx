@@ -10,7 +10,7 @@ export interface SidebarItems {
 }
 
 export interface SidebarProfile {
-  href?: string
+  href?: string;
   name: string;
   options: ReactNode;
 }

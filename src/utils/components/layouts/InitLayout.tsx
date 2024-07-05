@@ -1,13 +1,13 @@
-import { Inter } from "next/font/google";
-import Footer from "../Footer";
-import FooterItem from "../FooterItem";
+import { INIT_THEME } from "@app/utils/constants/InitData.constants";
 import { useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
+import { Inter } from "next/font/google";
 import Router from "next/router";
-import { useLocalStorage } from "usehooks-ts";
 import type React from "react";
 import { useEffect } from "react";
-import { useTheme } from "next-themes";
-import { INIT_THEME } from "@app/utils/constants/InitData.constants";
+import { useLocalStorage } from "usehooks-ts";
+import Footer from "../Footer";
+import FooterItem from "../FooterItem";
 const inter = Inter({ subsets: ["latin"] });
 
 interface IProps {
@@ -35,7 +35,6 @@ export default function InitLayout({ children }: IProps) {
   }
 
   useEffect(() => {
-    
     if (status === "unauthenticated") {
       setTheme(INIT_THEME);
       setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
