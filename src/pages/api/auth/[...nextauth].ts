@@ -74,6 +74,14 @@ export const authOptions: NextAuthOptions = {
             credential.id = user.id;
           }
         } catch (error) {
+          const catchError: { name: string; message: string } = error as {
+            name: string;
+            message: string;
+          };
+          if (catchError.name === "InvalidCredentialError") {
+            throw new InvalidCredentialError(catchError.message);
+          }
+
           throw new UnknownError("Error fetching or creating user");
         }
         return credential;
@@ -171,8 +179,11 @@ export const authOptions: NextAuthOptions = {
   },
   logger: {
     error(code, metadata) {
+      console.error(code, metadata);
     },
     warn(code) {
+      console.error(code);
+
     },
     debug(code, metadata) {
     },

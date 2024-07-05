@@ -18,7 +18,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.authUser(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
@@ -26,7 +26,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.getUserByEmail(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
@@ -34,7 +34,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.getUser(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
@@ -42,7 +42,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.listUsers(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
@@ -59,7 +59,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.removeUser(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
@@ -67,7 +67,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.updateUser(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
@@ -75,7 +75,7 @@ export default class UserUseCase {
     try {
       return await this.userRepository.getUserByEmail(data);
     } catch (error) {
-      throw new Error("Invalid credentials");
+      throw new InvalidCredentialError("Invalid credentials");
     }
   }
 
