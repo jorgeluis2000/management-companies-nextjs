@@ -1,5 +1,3 @@
-
-
 export const typeDefs = `#graphql
     scalar Date
 
@@ -7,6 +5,7 @@ export const typeDefs = `#graphql
         id: ID!
         email: String
         name: String
+        phone: String
         image:String
         userConfig: UserConfig
         role: Role
@@ -41,15 +40,52 @@ export const typeDefs = `#graphql
         USER
     }
 
+    enum TypeTransaction {
+      INCOME
+      EXPENSE
+    }
+
+
+    type Transaction {
+        id: ID
+        concept: String
+        amount: Float
+        typeTransaction: TypeTransaction
+        user: UserTransaction
+        createdAt: Date
+        updatedAt: Date
+    }
+
+    type UserTransaction {
+        id: ID!
+        email: String
+        name: String
+        role: Role
+    }
+
+    type TransactionChart {
+        amount: Float
+        createdAt: Date
+        user: UserTransaction
+    }
+
     type Query {
         users(limit: Int!, page: Int!): [User]
-        user(id: ID!): User
+        countUsers: Int
+        user: User
         userByEmail(email: String!): User
+        transactions(limit: Int!, page: Int!, typeTransaction: TypeTransaction, user: ID): [Transaction]
+        countTransactions(typeTransaction: TypeTransaction, user: ID): Int
+        currentBalance(user: ID): Float
+        getChartData(limit: Int!, page: Int!, typeTransaction: TypeTransaction!, createdAfter: Date, createdBefore: Date): [TransactionChart]
+        countChartData(typeTransaction: TypeTransaction, createdAfter: Date, createdBefore: Date): Int
     }
 
     type Mutation {
-        addUser(email: String!, name: String!, password: String!, image: String, role: Role!, language: String!, timeZone: String!, theme: UserTheme!): User
+        addUser(email: String!, name: String!, password: String!, image: String, phone: String, role: Role!, language: String!, timeZone: String!, theme: UserTheme!): User
         deleteUser(id: ID!): Boolean!
-        updateUser(id: ID!, email: String, name: String, password: String, image: String, role: Role, language: String, timeZone: String, theme: UserTheme!): User
+        updateUser(id: ID!, email: String, name: String, password: String, phone: String, image: String, role: Role, language: String, timeZone: String, theme: UserTheme): User
+        updateProfile(email: String, name: String, password: String, phone: String, image: String, role: Role, language: String, timeZone: String, theme: UserTheme): User
+        addTransaction(concept: String!, amount: Float!, typeTransaction: TypeTransaction!): Transaction
     }
-`
+`;

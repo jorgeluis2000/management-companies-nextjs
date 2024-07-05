@@ -11,10 +11,291 @@
     "link": "Volver al inicio"
   },
   "SignIn": {
-    "labelEmail": "Your email",
-    "labelPassword": "Your password",
+    "labelEmail": "Tu email",
+    "labelPassword": "Tu contraseña",
     "btnSignIn": "Iniciar sesión",
     "btnGoBack": "Regresar al inicio",
-    "hr": "o"
+    "hr": "o",
+    "title": "Iniciar sesión"
+  },
+  "Dashboard": {
+    "cardBalance": {
+      "title": "Saldo Total",
+      "extra": "Desde el principio"
+    },
+    "cardCountUsers": {
+      "title": "Total Usuarios",
+      "extra": "Desde el principio"
+    },
+    "cardCountTransactions": {
+      "title": "Transiciones Totales",
+      "extra": "Desde el principio"
+    },
+    "tableTransactions": {
+      "title": "Transiciones",
+      "summary": "Las transacciones recientes desde tu empresa.",
+      "more": "Ver Todo",
+      "columns": {
+        "user": "Usuario",
+        "typeUser": "Tipo Usuario",
+        "typeTransaction": "Tipo Transacción",
+        "date": "Fecha",
+        "amount": "Monto"
+      }
+    }
+  },
+  "QueryError": {
+    "sessionAuthorization": "No tienes los permisos suficientes para realizar esta acción",
+    "notAuthenticated": "No has iniciado sesión aún.",
+    "invalidCredentials": "Credenciales invalidadas, verifica los datos que estas ingresando."
+  },
+  "Transaction": {
+    "cardBalance": {
+      "title": "Saldo Total",
+      "extra": "Desde el principio"
+    },
+    "cardCountTransactions": {
+      "title": "Transiciones Totales",
+      "extra": "Desde el principio"
+    },
+    "tableTransactions": {
+      "title": "Transiciones",
+      "summary": "Las transacciones recientes desde tu empresa.",
+      "more": "Ver Todo",
+      "showMore": "Ver más",
+      "add": "Agregar",
+      "columns": {
+        "user": "Usuario",
+        "typeUser": "Tipo Usuario",
+        "typeTransaction": "Tipo Transacción",
+        "concept": "Concepto",
+        "date": "Fecha",
+        "amount": "Monto"
+      }
+    },
+    "sheetAddTransaction": {
+      "title": "Agrega una transacción",
+      "description": "En este apartado podrás agregar transacciones de ingreso y de egreso de saldo.",
+      "btnSaveName": "Realizar transacción",
+      "inputs": {
+        "labelConcept": "Concepto",
+        "placeholderConcept": "Pago de carro...",
+        "labelAmount": "Monto",
+        "placeholderAmount": "Monto de pago",
+        "labelType": "Tipo",
+        "placeholderType": "Seleccione el tipo de transferencia",
+        "optionsType": {
+          "defaultValue": "Tipo transferencia",
+          "income": "Ingreso",
+          "expense": "Gasto"
+        }
+      }
+    },
+    "toasts": {
+      "add": {
+        "title": "Exitosa",
+        "message": "Transición realzada exitosamente"
+      }
+    }
+  },
+  "Community": {
+    "cardUser": {
+      "title": "Usuarios",
+      "extra": "Desde el principio"
+    },
+    "tableUser": {
+      "add": "Agregar",
+      "title": "Usuarios",
+      "summary": "Todos los usuarios de la empresa.",
+      "showMore": "Ver más",
+      "columns": {
+        "actions": " - ",
+        "user": "Usuario",
+        "role": "Rol",
+        "phone": "# Cel",
+        "date": "Fecha de creación"
+      }
+    },
+    "sheetAddUser": {
+      "title": "Agregar nuevo usuario",
+      "description": "En este apartado podrás agregar usuarios de diferentes roles.",
+      "btnSubmit": "Crear usuario",
+      "btnCancel": "Cancelar",
+      "inputs": {
+        "labelName": "Nombre",
+        "placeholderName": "Federico Ramirez...",
+        "labelEmail": "Email",
+        "placeholderEmail": "Tu email",
+        "labelPhone": "Celular",
+        "placeholderPhone": "Tu número de celular",
+        "labelImage": "Imagen",
+        "placeholderImage": "URL de la imagen",
+        "labelRole": "Rol",
+        "placeholderRole": "Selecciona un rol",
+        "optionsRole": {
+          "defaultValue": "Rol del usuario",
+          "admin": "Administrador",
+          "user": "Empleado"
+        },
+        "labelTheme": "Tema",
+        "placeholderTheme": "Selecciona un tema",
+        "optionsTheme": {
+          "defaultValue": "Tema de la vista del usuario",
+          "dark": "Oscuro",
+          "light": "Claro",
+          "auto": "Automático/Sistema"
+        },
+        "labelTimezone": "Zona horaria",
+        "placeholderTimezone": "Selecciona un zona horaria",
+        "optionsTimezone": {
+          "defaultValue": "Selecciona un zona horaria...",
+          "notFound": "No se encuentran zonas horarias relacionados.",
+          "search": "Buscar zona horaria..."
+        },
+        "labelLanguage": "Lenguaje",
+        "placeholderLanguage": "Selecciona un lenguaje",
+        "optionsLanguage": {
+          "defaultValue": "Selecciona un lenguaje...",
+          "notFound": "No se encuentran lenguajes relacionados.",
+          "search": "Buscar lenguaje..."
+        },
+        "labelPassword": "Contraseña",
+        "placeholderPassword": "Tu contraseña",
+        "labelPasswordConfirm": "Contraseña de confirmación",
+        "placeholderPasswordConfirm": "Confirma tu contraseña"
+      }
+    },
+    "dialogShowUser": {
+      "title": "Información Usuario",
+      "description": "Encuentra toda la información completa de los usuarios en estas ventanas.",
+      "btnShow": "Ver",
+      "btnCancel": "Cancelar"
+    },
+    "dialogUpdateUser": {
+      "btnCancel": "Cancelar",
+      "btnSubmit": "Guardar cambios",
+      "inputs": {
+        "labelName": "Nombre",
+        "placeholderName": "Federico Ramirez...",
+        "labelRole": "Rol",
+        "placeholderRole": "Selecciona un rol",
+        "optionsRole": {
+          "defaultValue": "Rol del usuario",
+          "admin": "Administrador",
+          "user": "Empleado"
+        }
+      }
+    },
+    "toasts": {
+      "add": {
+        "title": "Exitosa",
+        "message": "Se a agregado un nuevo usuario exitosamente."
+      },
+      "errorAdd": {
+        "title": "Error",
+        "message": "Valida que tu contraseña y la contraseña de confirmación sean las mismas."
+      },
+      "update": {
+        "title": "Exitosa",
+        "message": "Se a actualizado los datos del usuario."
+      },
+      "errorUpdate": {
+        "title": "Error",
+        "message": "Lo sentimos no pudimos actualizar el usuario."
+      },
+      "loading": {
+        "title": "Procesando",
+        "message": "Se están procesando los datos..."
+      }
+    }
+  },
+  "Report": {
+    "title": "Reporte de transacciones",
+    "btnDownload": "Descargar",
+    "cardBalance": {
+      "title": "Saldo Total",
+      "extra": "Desde el principio"
+    },
+    "cardCountTransactions": {
+      "title": "Transiciones Totales",
+      "extra": "Desde el principio"
+    },
+    "inputs": {
+      "labelType": "Tipo",
+      "placeholderType": "Seleccione el tipo de transferencia",
+      "optionsType": {
+        "defaultValue": "Tipo transferencia",
+        "income": "Ingresos",
+        "expense": "Gastos"
+      },
+      "labelTime": "Rango de tiempo",
+      "placeholderTime": "Seleccione el rango",
+      "optionsTime": {
+        "defaultValue": "Rango de tiempo",
+        "last_7_days": "Últimos 7 días",
+        "last_30_days": "Últimos 30 días",
+        "all_time": "Desde el principio",
+        "today": "Hoy"
+      }
+    }
+  },
+  "Navigation": {
+    "home": "Inicio",
+    "transactions": "Transacciones",
+    "reports": "Reporters",
+    "communities": "Comunidad",
+    "profile": "Perfil",
+    "logout": "Cerrar sesión"
+  },
+  "Profile": {
+    "title": "Perfil de",
+    "description": "Modifica y personaliza tu perfil sin problemas.",
+    "btnCancel": "Cancelar",
+    "btnSubmit": "Guardar cambios",
+    "cardEdit": {
+      "inputs": {
+        "labelName": "Nombre",
+        "placeholderName": "Federico Ramirez...",
+        "labelEmail": "Email",
+        "placeholderEmail": "Tu email",
+        "labelPhone": "Celular",
+        "placeholderPhone": "Tu número de celular",
+        "labelImage": "Imagen",
+        "placeholderImage": "URL de la imagen",
+        "labelRole": "Rol",
+        "placeholderRole": "Selecciona un rol",
+        "optionsRole": {
+          "defaultValue": "Rol del usuario",
+          "admin": "Administrador",
+          "user": "Empleado"
+        },
+        "labelTheme": "Tema",
+        "placeholderTheme": "Selecciona un tema",
+        "optionsTheme": {
+          "defaultValue": "Tema de la vista del usuario",
+          "dark": "Oscuro",
+          "light": "Claro",
+          "auto": "Automático/Sistema"
+        },
+        "labelTimezone": "Zona horaria",
+        "placeholderTimezone": "Selecciona un zona horaria",
+        "optionsTimezone": {
+          "defaultValue": "Selecciona un zona horaria...",
+          "notFound": "No se encuentran zonas horarias relacionados.",
+          "search": "Buscar zona horaria..."
+        },
+        "labelLanguage": "Lenguaje",
+        "placeholderLanguage": "Selecciona un lenguaje",
+        "optionsLanguage": {
+          "defaultValue": "Selecciona un lenguaje...",
+          "notFound": "No se encuentran lenguajes relacionados.",
+          "search": "Buscar lenguaje..."
+        },
+        "labelPassword": "Contraseña",
+        "placeholderPassword": "Tu contraseña",
+        "labelPasswordConfirm": "Contraseña de confirmación",
+        "placeholderPasswordConfirm": "Confirma tu contraseña"
+      }
+    }
   }
 }

@@ -16,13 +16,14 @@ async function main() {
 
     await prisma.user.create({
         data: {
-            email: "testuser@gmail.com",
+            email: "admin@gmail.com",
             role: 'ADMIN',
             password: "1234",
+            phone: "1234",
             name: "admin test",
             userConfig: {
                 create: {
-                    theme: 'LIGHT',
+                    theme: 'AUTO',
                     language: {
                         connect: {
                             code: 'es'
@@ -43,7 +44,6 @@ async function main() {
 
 
 main().catch(err => {
-    console.error(err)
     process.exit(1)
 })
     .finally(async () => {

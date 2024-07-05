@@ -1,39 +1,54 @@
 import "@app/styles/globals.css";
-import { NextIntlClientProvider } from 'next-intl';
-import { useRouter } from 'next/router';
-import { SessionProvider } from "next-auth/react"
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { SessionProvider } from "next-auth/react";
+import { NextIntlClientProvider } from "next-intl";
 import type { AppProps } from "next/app";
-import { DarkThemeToggle, Flowbite, Footer, useThemeMode } from "flowbite-react";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
-import { useEffect } from "react";
+import { Inter as FontSans } from "next/font/google";
+import { useRouter } from "next/router";
+import { Toaster } from "@/components/ui/sonner";
+import ThemeProvider from "../utils/components/theme-provider";
+import React from "react";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const clientApollo = new ApolloClient({
+  uri: "/api/graphql",
+  credentials: "same-origin",
+  cache: new InMemoryCache(),
+});
+
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const router = useRouter();
-  const deviceTheme = useThemeMode()
-  const clientApollo = new ApolloClient({
-    uri: "/api/graphql",
-    cache: new InMemoryCache()
-  })
-  useEffect(() => {
-    deviceTheme.setMode('light')
-  }, [deviceTheme])
+
   return (
-    <Flowbite>
-      <SessionProvider session={pageProps.session}>
-        <ApolloProvider client={clientApollo}>
-          <NextIntlClientProvider
-            locale={router.locale}
-            timeZone="America/Bogota"
-            messages={pageProps.messages}
-          >
-            <Component {...pageProps} />
-            <Footer container>
-              <Footer.Copyright by="Jorge Luis Güiza Granobles" about="is licensed under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International" year={2024} rel="license noopener noreferrer" href="https://github.com/jorgeluis2000/management-companies-nextjs" />
-            </Footer>
-          </NextIntlClientProvider>
-        </ApolloProvider>
-      </SessionProvider>
-      {/* <DarkThemeToggle /> */}
-    </Flowbite>
+    <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>
+      <div
+        className={`bg-background font-sans antialiased overflow-x-hidden ${fontSans.className}`}
+      >
+        <SessionProvider session={pageProps.session}>
+          <ApolloProvider client={clientApollo}>
+            <NextIntlClientProvider
+              locale={router.locale}
+              timeZone="America/Bogota"
+              messages={pageProps.messages}
+            >
+              <Toaster
+                position="top-right"
+                duration={3000}
+                closeButton
+                pauseWhenPageIsHidden
+              />
+              <Component {...pageProps} />
+            </NextIntlClientProvider>
+          </ApolloProvider>
+        </SessionProvider>
+      </div>
+    </ThemeProvider>
   );
 }
