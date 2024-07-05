@@ -25,8 +25,7 @@ export default function SidebarDesktop({ title, sidebarItems, profile }: IProps)
                 <section className="mt-5">
                     <div className='flex flex-col gap-1 w-full'>
                         {sidebarItems.links.map((link, index) => (
-
-                            <Link key={index.toString()} href={link.href}>
+                            <a key={index.toString()} href={link.href}>
                                 <SidebarButton
                                     variant={pathname === link.href || `/${router.locale}${pathname}` === link.href ? 'secondary' : 'ghost'}
                                     icon={link.icon}
@@ -34,7 +33,7 @@ export default function SidebarDesktop({ title, sidebarItems, profile }: IProps)
                                 >
                                     {link.label}
                                 </SidebarButton>
-                            </Link>
+                            </a>
                         ))}
                         {sidebarItems.extras}
                     </div>

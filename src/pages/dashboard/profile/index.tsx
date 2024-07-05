@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -109,7 +108,7 @@ export default function ProfilePage() {
     if (status === "authenticated") {
       const authUserSession = currentSession as IUserSession;
       setSessionUser(authUserSession);
-      setLanguageValue(authUserSession.user.language?.code ?? "es");
+      setLanguageValue(authUserSession.user.language ?? "es");
       setTimezoneValue(authUserSession.user.timeZone ?? "America/Bogota");
       setRoleValue(authUserSession.user.role ?? "USER");
       setThemeValue(authUserSession.user.theme ?? "AUTO");

@@ -20,7 +20,7 @@ export interface IUserSession extends Session {
     role?: Role;
     theme?: UserTheme;
     timeZone?: string;
-    language?: { code: string; name: string };
+    language?: string;
   };
 }
 
@@ -33,5 +33,5 @@ export interface IUserSessionToken extends JWT {
   role?: Role;
   theme?: UserTheme;
   timeZone?: string;
-  language?: { code: string; name: string };
+  language?: string;
 }

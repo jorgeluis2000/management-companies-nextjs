@@ -69,7 +69,8 @@ export const resolvers = {
       context: Context,
     ) => {
       if (context.session?.user.id) {
-        return await transactionUseCase.listTransactions(args);
+        const transaction = await transactionUseCase.listTransactions(args);
+        return transaction;
       }
       throw new Error(context.t("QueryError.notAuthenticated"));
     },
@@ -213,7 +214,7 @@ export const resolvers = {
     ) => {
       try {
         if (context.session?.user.id) {
-          const validator = userValidator.validationUpdateProfile(args)
+          const validator = userValidator.validationUpdateProfile(args);
           if (validator.length > 0) {
             throw new InvalidCredentialError(validator[0].message);
           }

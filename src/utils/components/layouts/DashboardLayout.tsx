@@ -1,5 +1,5 @@
-import type React from "react";
 import SidebarDesktop from "../sidebar/SidebarDesktop";
+import type React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Router, { useRouter } from "next/router";
@@ -27,6 +27,11 @@ import { toast } from "sonner";
 import type { GetStaticPropsContext } from "next";
 import Footer from "../Footer";
 import FooterItem from "../FooterItem";
+import {
+  INIT_LANGUAGE,
+  INIT_THEME,
+  INIT_TIMEZONE,
+} from "@app/utils/constants/InitData.constants";
 
 interface IProps {
   children?: React.ReactNode;
@@ -39,7 +44,6 @@ export default function DashboardLayout({ children, className }: IProps) {
   const router = useRouter();
   const sizeIcon = 20;
   const { theme: _themeNow, setTheme } = useTheme();
-  const [sessionUser, setSessionUser] = useState<IUserSession>();
   const [profileOp, setProfileOp] = useState<SidebarProfile>({
     name: "-",
     href: "/defaultProfile.png",
@@ -72,17 +76,13 @@ export default function DashboardLayout({ children, className }: IProps) {
     ),
   });
 
-  const [timezone, setTimezone, _removeTimezone] = useLocalStorage(
+  const [_timezone, setTimezone, _removeTimezone] = useLocalStorage(
     "timezone",
-    "America/Los_Angeles",
+    INIT_TIMEZONE,
   );
-  const [language, setLanguage, _removeLanguage] = useLocalStorage(
+  const [_language, setLanguage, _removeLanguage] = useLocalStorage(
     "language",
-    "en",
-  );
-  const [modeTheme, setModeTheme, _removeModeTheme] = useLocalStorage(
-    "modeTheme",
-    "system",
+    INIT_LANGUAGE,
   );
 
   const [sidebarItems, setSidebarItems] = useState<SidebarItems>({
@@ -114,57 +114,43 @@ export default function DashboardLayout({ children, className }: IProps) {
     initializeWithValue: false,
   });
 
-  const handleUnauthenticated = useCallback(() => {
+  function updateLocalStorages(sessionCurrent: IUserSession) {
+    setTimezone(sessionCurrent.user.timeZone ?? INIT_TIMEZONE);
+    setLanguage(sessionCurrent.user.language ?? INIT_LANGUAGE);
+    const theme = sessionCurrent.user.theme?.toLowerCase();
+    setTheme(theme === "auto" ? INIT_THEME : theme ?? INIT_THEME);
+    setProfileOp((before) => ({
+      ...before,
+      name: sessionCurrent.user.name ?? " - ",
+      href: sessionCurrent.user.image ?? before.href,
+    }));
+  }
+
+  useEffect(() => {
     if (status === "unauthenticated") {
       router.replace(`/${router.locale}/auth/signin`);
     }
-  }, [status, router]);
-
-  const handleAuthenticated = useCallback(() => {
-    if (status === "authenticated") {
-      const sessionCurrent = data as IUserSession
-      setSessionUser(sessionCurrent);
-      setProfileOp((before) => ({
-        ...before,
-        name: sessionCurrent.user.name ?? " - ",
-        href: sessionCurrent.user.image ?? before.href,
-      }));
+    if (data) {
+      const sessionCurrent = data as IUserSession;
+      updateLocalStorages(sessionCurrent);
+      if (sessionCurrent.user.role !== "ADMIN") {
+        setSidebarItems({
+          links: [
+            {
+              label: t("home"),
+              href: `/${router.locale}/dashboard`,
+              icon: <FiHome size={sizeIcon} />,
+            },
+            {
+              label: t("transactions"),
+              href: `/${router.locale}/dashboard/transaction`,
+              icon: <FiDollarSign size={sizeIcon} />,
+            },
+          ],
+        });
+      }
     }
-  }, [status, data]);
-
-  const updatePreferences = useCallback(() => {
-    if (sessionUser) {
-      setTimezone(sessionUser.user.timeZone ?? timezone);
-      setLanguage(sessionUser.user.language?.code ?? language);
-      const theme = sessionUser.user.theme?.toLowerCase();
-      setModeTheme(theme ?? modeTheme.toLowerCase());
-      setTheme(theme === "auto" ? "system" : theme ?? "system");
-    }
-  }, [sessionUser, language, modeTheme, timezone, setTimezone, setLanguage, setModeTheme, setTheme]);
-
-  const updateSidebarItems = useCallback(() => {
-    if (sessionUser && sessionUser.user.role !== "ADMIN") {
-      setSidebarItems({
-        links: [
-          {
-            label: t("home"),
-            href: `/${router.locale}/dashboard`,
-            icon: <FiHome size={sizeIcon} />,
-          },
-          {
-            label: t("transactions"),
-            href: `/${router.locale}/dashboard/transaction`,
-            icon: <FiDollarSign size={sizeIcon} />,
-          },
-        ],
-      });
-    }
-  }, [sessionUser, router, t]);
-
-  useEffect(handleUnauthenticated, [handleUnauthenticated]);
-  useEffect(handleAuthenticated, [handleAuthenticated]);
-  useEffect(updatePreferences, [updatePreferences]);
-  useEffect(updateSidebarItems, [updateSidebarItems]);
+  }, [data, status, router]);
 
   return (
     <>

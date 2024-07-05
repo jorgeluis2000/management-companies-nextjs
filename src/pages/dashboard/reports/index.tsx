@@ -1,20 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import type {
   TCountTransactions,
   TCurrentBalanceTransaction,
   TGetChartData,
-  TTransactionChart,
   TTransactionCSV,
 } from "@app/utils/domain/types/transaction/Transaction";
 import type {
   CountTransactionsParams,
   CurrentBalanceTransactionParams,
   GetChartDataParams,
-  ListTransactionsParams,
 } from "@app/utils/domain/types/transaction/TransactionParams";
+import React from "react";
 import {
   COUNT_TRANSACTIONS,
   CURRENT_BALANCE_TRANSACTION,
@@ -40,7 +39,7 @@ import Required from "@app/utils/components/Required";
 import { subDays } from "date-fns";
 import { date, format } from "@formkit/tempo";
 import DownloadCSV from "@app/utils/components/DownloadCVS";
-import { PiFileCsv, PiFileCsvFill } from "react-icons/pi";
+import { PiFileCsvFill } from "react-icons/pi";
 
 export default function ProfilePage() {
   const t = useTranslations("Report");
@@ -49,52 +48,54 @@ export default function ProfilePage() {
   const [typeTransaction, setTypeTransaction] =
     useState<TypeTransaction>("INCOME");
 
-  const fields = [
-    "amount",
-    "createdAt",
-    "userEmail",
-    "userName",
-    "userRole",
-  ];
+  const fields = ["amount", "createdAt", "userEmail", "userName", "userRole"];
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, _setEndDate] = useState<Date | null>(null);
   const [dataDownload, setDataDownload] = useState<TTransactionCSV[]>([]);
 
-  const {
-    error: _balanceError,
-    loading: balanceLoading,
-    data: balance,
-  } = useQuery<TCurrentBalanceTransaction, CurrentBalanceTransactionParams>(
-    CURRENT_BALANCE_TRANSACTION,
-  );
+  const [loadBalance, { loading: balanceLoading, data: balance }] =
+    useLazyQuery<TCurrentBalanceTransaction, CurrentBalanceTransactionParams>(
+      CURRENT_BALANCE_TRANSACTION,
+    );
 
-  const {
-    error: _dataChartError,
-    loading: _dataChartLoading,
-    data: dataChart,
-  } = useQuery<TGetChartData, GetChartDataParams>(GET_CHART_DATA_TRANSACTION, {
-    variables: {
-      limit: limitRows,
-      page: 1,
-      typeTransaction: typeTransaction,
-      createdAfter: startDate,
-      createdBefore: endDate,
-    },
-  });
+  const [loadGetChart, { loading: _dataChartLoading, data: dataChart }] =
+    useLazyQuery<TGetChartData, GetChartDataParams>(GET_CHART_DATA_TRANSACTION);
 
-  const {
-    error: _countTransactionError,
-    loading: countTransactionLoading,
-    data: countTransaction,
-  } = useQuery<TCountTransactions, CountTransactionsParams>(
+  const [
+    loadCountTransaction,
+    { loading: countTransactionLoading, data: countTransaction },
+  ] = useLazyQuery<TCountTransactions, CountTransactionsParams>(
     COUNT_TRANSACTIONS,
-    {
-      variables: {
-        typeTransaction: typeTransaction,
-      },
-    },
   );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadBalance();
+      await loadGetChart({
+        variables: {
+          limit: limitRows,
+          page: 1,
+          typeTransaction: typeTransaction,
+          createdAfter: startDate,
+          createdBefore: endDate,
+        },
+      });
+      await loadCountTransaction({
+        variables: {
+          typeTransaction: typeTransaction,
+        },
+      });
+    };
+    fetchData();
+  }, [
+    loadCountTransaction,
+    loadBalance,
+    loadGetChart,
+    startDate,
+    endDate,
+    typeTransaction,
+  ]);
 
   useEffect(() => {
     if (dataChart) {

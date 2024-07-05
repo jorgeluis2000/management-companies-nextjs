@@ -7,10 +7,17 @@ import { Inter as FontSans } from "next/font/google";
 import { useRouter } from "next/router";
 import { Toaster } from "@/components/ui/sonner";
 import ThemeProvider from "../utils/components/theme-provider";
+import React from "react";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const clientApollo = new ApolloClient({
+  uri: "/api/graphql",
+  credentials: "same-origin",
+  cache: new InMemoryCache(),
 });
 
 export default function App({
@@ -18,11 +25,6 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   const router = useRouter();
-  const clientApollo = new ApolloClient({
-    uri: "/api/graphql",
-    credentials: "same-origin",
-    cache: new InMemoryCache(),
-  });
 
   return (
     <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>

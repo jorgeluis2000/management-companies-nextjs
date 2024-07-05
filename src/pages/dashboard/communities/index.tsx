@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import DialogUpdate from "@app/utils/components/DialogUpdate";
 import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import SheetAddUser from "@app/utils/components/SheetAddUser";
@@ -38,16 +38,17 @@ import { maxPagesList } from "@app/utils/services/ListServer";
 import { format } from "@formkit/tempo";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiArrowDownCircle, FiMoreHorizontal, FiUsers } from "react-icons/fi";
 import { useReadLocalStorage } from "usehooks-ts";
-import FormShowUser from "../../../utils/components/communities/FormShowUser";
-import FormUpdateUser from "../../../utils/components/communities/FormUpdateUser";
+import FormShowUser from "@app/utils/components/communities/FormShowUser";
+import FormUpdateUser from "@app/utils/components/communities/FormUpdateUser";
 
 export default function CommunityPage() {
   const limitRows = 25;
   const admin = "border-sky-500 text-teal-700 bg-sky-200/50 dark:bg-sky-300";
-  const normalUser = "border-teal-500 text-teal-700 bg-teal-200/50 dark:bg-teal-300";
+  const normalUser =
+    "border-teal-500 text-teal-700 bg-teal-200/50 dark:bg-teal-300";
   const timezone = useReadLocalStorage<string>("timezone");
   const t = useTranslations("Community");
 
@@ -55,26 +56,25 @@ export default function CommunityPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState<number>(0);
 
-  const {
-    error: _listUserError,
-    loading: listUserLoading,
-    data: listUser,
-  } = useQuery<TListUser, ListUserParams>(LIST_USERS, {
-    variables: {
-      limit: limitRows,
-      page: currentPage,
-    },
-  });
+  const [loadUsers, { loading: listUserLoading, data: listUser }] =
+    useLazyQuery<TListUser, ListUserParams>(LIST_USERS);
 
-  const {
-    error: _countUsersError,
-    loading: countUsersLoading,
-    data: countUsers,
-  } = useQuery<TCurrentCountUsers>(COUNT_USER);
+  const [loadCountUsers, { loading: countUsersLoading, data: countUsers }] =
+    useLazyQuery<TCurrentCountUsers>(COUNT_USER);
 
   async function eventHandlerShowMore() {
     setCurrentPage((beforePage) => beforePage + 1);
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadCountUsers();
+      await loadUsers({
+        variables: { limit: limitRows, page: currentPage },
+      });
+    };
+    fetchData();
+  }, [loadUsers, loadCountUsers, currentPage]);
 
   useEffect(() => {
     if (listUser) {

@@ -1,14 +1,13 @@
-import { cn } from "@/lib/utils";
-
 import { Inter } from "next/font/google";
 import Footer from "../Footer";
 import FooterItem from "../FooterItem";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
 import { useLocalStorage } from "usehooks-ts";
+import type React from "react";
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
-
+import { INIT_THEME } from "@app/utils/constants/InitData.constants";
 const inter = Inter({ subsets: ["latin"] });
 
 interface IProps {
@@ -19,13 +18,13 @@ export default function InitLayout({ children }: IProps) {
   const { status } = useSession();
   const [_timezone, setTimezone, _removeTimezone] = useLocalStorage(
     "timezone",
-    "America/Los_Angeles",
+    Intl.DateTimeFormat().resolvedOptions().timeZone,
   );
   const [_language, setLanguage, _removeLanguage] = useLocalStorage(
     "language",
     "en",
   );
-  const [modeTheme, setModeTheme, _removeModeTheme] = useLocalStorage(
+  const [_modeTheme, _setModeTheme, _removeModeTheme] = useLocalStorage(
     "modeTheme",
     "system",
   );
@@ -35,23 +34,14 @@ export default function InitLayout({ children }: IProps) {
     Router.replace(`/${Router.locale}/dashboard`);
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    setLanguage(navigator.language);
-  }, []);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  }, []);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    setModeTheme("system");
-    setTheme(
-      modeTheme.toLowerCase() === "auto" ? "system" : modeTheme.toLowerCase(),
-    );
-  }, [modeTheme]);
+    
+    if (status === "unauthenticated") {
+      setTheme(INIT_THEME);
+      setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+      setLanguage(navigator.language);
+    }
+  }, [status, setTheme, setTimezone, setLanguage]);
 
   return (
     <>

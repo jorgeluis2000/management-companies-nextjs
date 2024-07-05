@@ -11,8 +11,8 @@ import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
+import React from "react";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const t = useTranslations("Home");

@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import SkeletonTable from "@app/utils/components/SkeletonTable";
 import type {
@@ -44,11 +44,13 @@ import { useReadLocalStorage } from "usehooks-ts";
 import SheetAddTransaction from "@app/utils/components/SheetAddTransaction";
 import { useEffect, useState } from "react";
 import { maxPagesList } from "@app/utils/services/ListServer";
+import { sleep } from "@app/utils/services/AwaitTime";
 
 export default function TransactionPage() {
   const limitRows = 25;
   const expense = "border-red-500 text-red-700 bg-red-200/50 dark:bg-red-300";
-  const income = "border-green-500 text-green-700 bg-green-200/50 dark:bg-green-300";
+  const income =
+    "border-green-500 text-green-700 bg-green-200/50 dark:bg-green-300";
   const timezone = useReadLocalStorage<string>("timezone");
   const t = useTranslations("Transaction");
 
@@ -57,27 +59,39 @@ export default function TransactionPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [countTrans, setCountTrans] = useState<number>(0);
-  const {
-    error: _transactionsError,
-    loading: transactionsLoading,
-    data: transactions,
-  } = useQuery<TListTransaction, ListTransactionsParams>(GET_TRANSACTIONS, {
+  const [
+    loadTransaction,
+    {
+      error: _transactionsError,
+      loading: transactionsLoading,
+      data: transactions,
+    },
+  ] = useLazyQuery<TListTransaction, ListTransactionsParams>(GET_TRANSACTIONS, {
     variables: { page: currentPage, limit: limitRows },
   });
 
-  const {
-    error: _countTransactionError,
-    loading: countTransactionLoading,
-    data: countTransaction,
-  } = useQuery<TCountTransactions, CountTransactionsParams>(COUNT_TRANSACTIONS);
-
-  const {
-    error: _balanceError,
-    loading: balanceLoading,
-    data: balance,
-  } = useQuery<TCurrentBalanceTransaction, CurrentBalanceTransactionParams>(
-    CURRENT_BALANCE_TRANSACTION,
+  const [
+    loadCountTransaction,
+    { loading: countTransactionLoading, data: countTransaction },
+  ] = useLazyQuery<TCountTransactions, CountTransactionsParams>(
+    COUNT_TRANSACTIONS,
   );
+
+  const [loadBalance, { loading: balanceLoading, data: balance }] =
+    useLazyQuery<TCurrentBalanceTransaction, CurrentBalanceTransactionParams>(
+      CURRENT_BALANCE_TRANSACTION,
+    );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadBalance();
+      await loadCountTransaction();
+      await loadTransaction({
+        variables: { page: currentPage, limit: limitRows },
+      });
+    };
+    fetchData();
+  }, [loadTransaction, loadCountTransaction, loadBalance, currentPage]);
 
   async function eventHandlerShowMoreTransactions() {
     setCurrentPage((beforePage) => beforePage + 1);
