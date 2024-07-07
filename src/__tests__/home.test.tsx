@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import HomePage from "..";
+import HomePage from "../pages";
 import { NextIntlClientProvider } from "next-intl";
 import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 import { createMockRouter } from "@app/utils/services/TestUtils";

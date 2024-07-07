@@ -5,7 +5,7 @@ import {
   GET_CHART_DATA_TRANSACTION,
 } from "@app/utils/queries/TransactionQuery";
 import { render, screen, waitFor } from "@testing-library/react";
-import ReportsPage from "../../dashboard/reports";
+import ReportsPage from "../../pages/dashboard/reports";
 import { NextIntlClientProvider } from "next-intl";
 import { SessionProvider } from "next-auth/react";
 import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
