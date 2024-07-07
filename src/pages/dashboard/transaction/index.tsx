@@ -37,7 +37,6 @@ import {
   CURRENT_BALANCE_TRANSACTION,
   GET_TRANSACTIONS,
 } from "@app/utils/queries/TransactionQuery";
-import { sleep } from "@app/utils/services/AwaitTime";
 import { maxPagesList } from "@app/utils/services/ListServer";
 import { format } from "@formkit/tempo";
 import type { GetStaticPropsContext } from "next";

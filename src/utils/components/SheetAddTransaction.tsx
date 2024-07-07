@@ -93,6 +93,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
             </Label>
             <Input
               id="concept-transaction-add"
+              data-testid="concept-transaction-add"
               name="concept"
               type="text"
               placeholder={t("sheetAddTransaction.inputs.placeholderConcept")}
@@ -105,6 +106,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
             </Label>
             <Input
               id="amount-transaction-add"
+              data-testid="amount-transaction-add"
               name="amount"
               type="number"
               autoComplete="off"
@@ -117,7 +119,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
               {t("sheetAddTransaction.inputs.labelType")} <Required />
             </Label>
             <Select name="type">
-              <SelectTrigger id="type-transaction-add" className="col-span-3">
+              <SelectTrigger id="type-transaction-add" data-testid="type-transaction-add" className="col-span-3">
                 <SelectValue
                   placeholder={t("sheetAddTransaction.inputs.placeholderType")}
                 />
