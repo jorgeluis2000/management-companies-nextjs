@@ -133,8 +133,7 @@ jest.mock("usehooks-ts", () => ({
   useLocalStorage: jest
     .fn()
     .mockImplementation((key: string, defaultValue: string) => {
-      // Implementa el comportamiento de mock según sea necesario para tus pruebas
-      return ["America/Bogota", jest.fn(), jest.fn()]; // Simula el retorno esperado
+      return ["America/Bogota", jest.fn(), jest.fn()];
     }),
   useMediaQuery: jest.fn().mockReturnValue(true),
 }));
