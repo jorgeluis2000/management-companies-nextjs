@@ -31,8 +31,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useMutation } from "@apollo/client";
-import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import Required from "@app/utils/components/Required";
+import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import { LANGUAGES } from "@app/utils/constants/Languages.constants";
 import type { TUserEditProfile } from "@app/utils/domain/types/forms/UserForms";
 import type { TUpdateUser } from "@app/utils/domain/types/user/User";
@@ -101,7 +101,7 @@ export default function ProfilePage() {
         timeZone: timezoneValue,
       },
     });
-    router.reload()
+    router.reload();
   }
 
   useEffect(() => {

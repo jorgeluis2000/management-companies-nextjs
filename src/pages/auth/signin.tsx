@@ -11,8 +11,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { FiAlertOctagon, FiCheck, FiLoader } from "react-icons/fi";
 import { HiHome, HiOutlineArrowRight } from "react-icons/hi";
-import { toast } from "sonner";
 import { SiAuth0 } from "react-icons/si";
+import { toast } from "sonner";
 
 export default function SignInPage(props: NextPage) {
   const t = useTranslations("SignIn");

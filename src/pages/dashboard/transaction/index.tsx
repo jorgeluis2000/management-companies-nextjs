@@ -18,8 +18,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
+import SheetAddTransaction from "@app/utils/components/SheetAddTransaction";
 import SkeletonTable from "@app/utils/components/SkeletonTable";
+import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import type {
   TCountTransactions,
   TCurrentBalanceTransaction,
@@ -36,15 +37,13 @@ import {
   CURRENT_BALANCE_TRANSACTION,
   GET_TRANSACTIONS,
 } from "@app/utils/queries/TransactionQuery";
+import { maxPagesList } from "@app/utils/services/ListServer";
+import { format } from "@formkit/tempo";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
-import { FiActivity, FiArrowDownCircle, FiDollarSign } from "react-icons/fi";
-import { format } from "@formkit/tempo";
-import { useReadLocalStorage } from "usehooks-ts";
-import SheetAddTransaction from "@app/utils/components/SheetAddTransaction";
 import { useEffect, useState } from "react";
-import { maxPagesList } from "@app/utils/services/ListServer";
-import { sleep } from "@app/utils/services/AwaitTime";
+import { FiActivity, FiArrowDownCircle, FiDollarSign } from "react-icons/fi";
+import { useReadLocalStorage } from "usehooks-ts";
 
 export default function TransactionPage() {
   const limitRows = 25;

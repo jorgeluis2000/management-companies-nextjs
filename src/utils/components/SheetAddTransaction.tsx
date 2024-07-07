@@ -1,4 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Sheet,
   SheetClose,
@@ -10,28 +21,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useMutation } from "@apollo/client";
-import { FiArrowUpRight, FiCheck } from "react-icons/fi";
-import { ADD_TRANSACTION } from "../queries/TransactionQuery";
-import type { TAddTransaction } from "../domain/types/transaction/Transaction";
-import type { AddTransactionParams } from "../domain/types/transaction/TransactionParams";
-import { useEffect, useState, type FormEvent } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import type { TypeTransaction } from "@prisma/client";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { useRouter } from "next/router";
+import { type FormEvent, useEffect, useState } from "react";
+import { FiArrowUpRight, FiCheck } from "react-icons/fi";
+import { toast } from "sonner";
 import type { TTransactionAdd } from "../domain/types/forms/TransactionForms";
-import type { TypeTransaction } from "@prisma/client";
+import type { TAddTransaction } from "../domain/types/transaction/Transaction";
+import type { AddTransactionParams } from "../domain/types/transaction/TransactionParams";
+import { ADD_TRANSACTION } from "../queries/TransactionQuery";
 import Required from "./Required";
 
 interface IProps {
@@ -89,10 +89,11 @@ export default function SheetAddTransaction({ description, title }: IProps) {
         >
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="concept-transaction-add" className="text-right">
-            <Required /> {t("sheetAddTransaction.inputs.labelConcept")}
+              <Required /> {t("sheetAddTransaction.inputs.labelConcept")}
             </Label>
             <Input
               id="concept-transaction-add"
+              data-testid="concept-transaction-add"
               name="concept"
               type="text"
               placeholder={t("sheetAddTransaction.inputs.placeholderConcept")}
@@ -105,6 +106,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
             </Label>
             <Input
               id="amount-transaction-add"
+              data-testid="amount-transaction-add"
               name="amount"
               type="number"
               autoComplete="off"
@@ -117,7 +119,7 @@ export default function SheetAddTransaction({ description, title }: IProps) {
               {t("sheetAddTransaction.inputs.labelType")} <Required />
             </Label>
             <Select name="type">
-              <SelectTrigger id="type-transaction-add" className="col-span-3">
+              <SelectTrigger id="type-transaction-add" data-testid="type-transaction-add" className="col-span-3">
                 <SelectValue
                   placeholder={t("sheetAddTransaction.inputs.placeholderType")}
                 />

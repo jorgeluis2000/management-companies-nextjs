@@ -25,9 +25,7 @@ export default function NotFound() {
           <CardTitle>
             {t("title")}: {t("code")}
           </CardTitle>
-          <CardDescription>
-            {t("message")}
-          </CardDescription>
+          <CardDescription>{t("message")}</CardDescription>
         </CardHeader>
         <CardFooter>
           <Link href={`/${locale}`}>{t("link")}</Link>

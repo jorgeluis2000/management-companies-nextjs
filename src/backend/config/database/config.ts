@@ -1,8 +1,6 @@
 import type { IUserSession } from "@app/utils/domain/types/user/UserSession";
 import { PrismaClient } from "@prisma/client";
 
-
-
 export type Context = {
   prisma: PrismaClient;
   session: IUserSession | null;

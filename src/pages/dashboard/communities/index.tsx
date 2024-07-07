@@ -24,9 +24,11 @@ import {
 } from "@/components/ui/table";
 import { useLazyQuery } from "@apollo/client";
 import DialogUpdate from "@app/utils/components/DialogUpdate";
-import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import SheetAddUser from "@app/utils/components/SheetAddUser";
 import SkeletonTable from "@app/utils/components/SkeletonTable";
+import FormShowUser from "@app/utils/components/communities/FormShowUser";
+import FormUpdateUser from "@app/utils/components/communities/FormUpdateUser";
+import DashboardLayout from "@app/utils/components/layouts/DashboardLayout";
 import type {
   TCurrentCountUsers,
   TListUser,
@@ -41,8 +43,6 @@ import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { FiArrowDownCircle, FiMoreHorizontal, FiUsers } from "react-icons/fi";
 import { useReadLocalStorage } from "usehooks-ts";
-import FormShowUser from "@app/utils/components/communities/FormShowUser";
-import FormUpdateUser from "@app/utils/components/communities/FormUpdateUser";
 
 export default function CommunityPage() {
   const limitRows = 25;

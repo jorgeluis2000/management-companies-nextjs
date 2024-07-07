@@ -1,6 +1,6 @@
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import SkeletonTable from "../SkeletonTable";
 import type { TTransaction } from "@app/utils/domain/types/transaction/Transaction";
+import SkeletonTable from "../SkeletonTable";
 import RowTransaction from "./RowTransaction";
 interface IProps {
   loading?: boolean;

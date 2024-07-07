@@ -1,5 +1,29 @@
 import { Button } from "@/components/ui/button";
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Sheet,
   SheetClose,
   SheetContent,
@@ -10,44 +34,20 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useMutation } from "@apollo/client";
-import { FiAlertOctagon, FiArrowUpRight, FiCheck } from "react-icons/fi";
-import { HiOutlineChevronUpDown } from "react-icons/hi2";
-import { useEffect, useState, type FormEvent } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { LANGUAGES } from "@app/utils/constants/Languages.constants";
+import { TIMEZONE } from "@data/timezones";
 import type { GetStaticPropsContext } from "next";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { useRouter } from "next/router";
-import { ADD_USER } from "../queries/UserQuery";
-import type { AddUserParams } from "../domain/types/user/UserParams";
-import type { TAddUser } from "../domain/types/user/User";
+import { type FormEvent, useEffect, useState } from "react";
+import { FiAlertOctagon, FiArrowUpRight, FiCheck } from "react-icons/fi";
+import { HiOutlineChevronUpDown } from "react-icons/hi2";
+import { toast } from "sonner";
 import type { TUserAdd } from "../domain/types/forms/UserForms";
+import type { TAddUser } from "../domain/types/user/User";
+import type { AddUserParams } from "../domain/types/user/UserParams";
+import { ADD_USER } from "../queries/UserQuery";
 import Required from "./Required";
-import { TIMEZONE } from "@data/timezones";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { LANGUAGES } from "@app/utils/constants/Languages.constants";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 
 interface IProps {
   title: string | React.ReactNode;
