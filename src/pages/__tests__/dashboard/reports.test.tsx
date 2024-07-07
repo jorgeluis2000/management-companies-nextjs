@@ -11,17 +11,6 @@ import { SessionProvider } from "next-auth/react";
 import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 import { createMockRouter } from "@app/utils/services/TestUtils";
 
-window.matchMedia =
-  window.matchMedia ||
-  (() => ({
-      matches: false,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
-    }));
-
 const mocks = [
   {
     request: {
@@ -120,6 +109,18 @@ const messages = {
 
 describe("ReportsPage", () => {
   beforeEach(() => {
+    if (typeof window !== "undefined") {
+      window.matchMedia =
+        window.matchMedia ||
+        (() => ({
+          matches: false,
+          addListener: jest.fn(),
+          removeListener: jest.fn(),
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+          dispatchEvent: jest.fn(),
+        }));
+    }
     render(
       <RouterContext.Provider value={createMockRouter({})}>
         <MockedProvider mocks={mocks} addTypename={false}>
